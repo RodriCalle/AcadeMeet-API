@@ -10,5 +10,5 @@ public interface UserPlanService {
     List<UserPlan> getAllByPlanId(Long planid);
     List<UserPlan> getAllUserPlans();
     UserPlan createUserPlan(Long userid, Long planid, UserPlan userplan);
-    ResponseEntity<?> deleteUserPlan(Long userid,Long planid);
+    ResponseEntity<?> deleteUserPlan(Long userid,Long id);
 }
