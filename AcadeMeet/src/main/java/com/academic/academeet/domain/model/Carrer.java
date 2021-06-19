@@ -32,8 +32,8 @@ public class Carrer {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "teacher_carrers",
-            joinColumns = {@JoinColumn(name = "teacher_id")},
-            inverseJoinColumns = { @JoinColumn(name = "carrer_id")})
+            joinColumns = {@JoinColumn(name = "carrer_id")},
+            inverseJoinColumns = { @JoinColumn(name = "teacher_id")})
     private List<Teacher> teachers = new ArrayList<>();
 
     public Carrer() {
