@@ -1,6 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.User;
+import com.academic.academeet.domain.service.PlanService;
 import com.academic.academeet.domain.service.UserService;
 import com.academic.academeet.resource.SaveUserResource;
 import com.academic.academeet.resource.UserResource;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PlanService planService;
     @Autowired
     private ModelMapper mapper;
 
@@ -53,5 +56,16 @@ public class UserController {
 
     private UserResource convertToResource(User entity){
         return mapper.map(entity, UserResource.class);
+    }
+
+    @PostMapping("/users/{userid}/plans/{planid}")
+    public UserResource assignUserPlan(@PathVariable Long userid, @PathVariable Long planid){
+        return convertToResource(userService.assignUserPlan(userid,planid));
+    }
+
+    @DeleteMapping("/users/{userid}/plans/{planid}")
+    public UserResource unassignUserPlan(@PathVariable Long userid, @PathVariable Long planid){
+        return convertToResource(userService.unassignUserPlan(userid,planid));
+
     }
 }

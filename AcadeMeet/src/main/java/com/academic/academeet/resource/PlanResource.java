@@ -1,16 +1,16 @@
 package com.academic.academeet.resource;
 
 public class PlanResource {
-    private Long plan_id;
+    private Long id;
     private String name;
     private int price;
 
-    public Long getPlan_id() {
-        return plan_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setPlan_id(Long plan_id) {
-        this.plan_id = plan_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Plan", "Id", planid));
         return userRepository.findById(userid).map(
-                carrer -> userRepository.save(carrer.tagWith(plan)))
+                user -> userRepository.save(user.tagWith(plan)))
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User", "Id", userid));
     }
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Plan", "Id", planid));
         return userRepository.findById(userid).map(
-                carrer -> userRepository.save(carrer.untagWith(plan)))
+                user -> userRepository.save(user.untagWith(plan)))
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User", "Id", userid));
     }

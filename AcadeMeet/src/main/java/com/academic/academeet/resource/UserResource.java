@@ -1,18 +1,18 @@
 package com.academic.academeet.resource;
 
 public class UserResource {
-    private Long user_id;
+    private Long id;
     private String first_name;
     private String last_name;
     private String mail;
     private String password;
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirst_name() {
