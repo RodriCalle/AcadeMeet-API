@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +43,16 @@ public class SchoolsController {
     @PostMapping("/schools")
     public SchoolResource createSchool(@RequestBody SaveSchoolResource resource) {
         return convertToResource(schoolService.createSchool(convertToEntity(resource)));
+    }
+
+    @PutMapping("/school/{id}")
+    public SchoolResource updateSchool(@PathVariable Long id, @Valid @RequestBody SaveSchoolResource resource) {
+        return convertToResource(schoolService.updateSchool(id, convertToEntity(resource)));
+    }
+
+    @DeleteMapping("/school/{id}")
+    public ResponseEntity<?> deleteSchool(@PathVariable Long id) {
+        return schoolService.deleteSchool(id);
     }
 
 

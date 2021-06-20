@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -48,6 +49,11 @@ public class LevelsController {
     @PutMapping("/levels/{id}/students/{studentId}")
     public LevelResource assignLevelToStudent(@PathVariable Long id, @PathVariable Long studentId) {
         return convertToResource(levelService.assignLevelToStudent(id, studentId));
+    }
+
+    @DeleteMapping("/levels/{id}")
+    public ResponseEntity<?> deleteLevel(@PathVariable Long id) {
+        return levelService.deleteLevel(id);
     }
 
     private Level convertToEntity(SaveLevelResource resource) {

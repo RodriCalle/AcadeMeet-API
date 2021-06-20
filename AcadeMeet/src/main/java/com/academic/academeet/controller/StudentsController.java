@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,11 @@ public class StudentsController {
     @PostMapping("/students")
     public StudentResource createStudent(SaveStudentResource resource) {
         return convertToResource(studentService.saveStudent(convertToEntity(resource)));
+    }
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
+        return studentService.deleteStudent(id);
     }
 
     private Student convertToEntity(SaveStudentResource resource) {
