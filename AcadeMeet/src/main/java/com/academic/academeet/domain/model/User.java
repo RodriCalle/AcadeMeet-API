@@ -1,6 +1,7 @@
 package com.academic.academeet.domain.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,16 @@ public class User {
     private String last_name;
     private String mail;
     private String password;
-    @OneToMany
-    private List<Plan> plan;
+
+    public List<Plan> getPlans() {
+        return plans;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "user_plans",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "plan_id")})
+    private List<Plan> plans = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -55,4 +64,21 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isTaggedWith(Plan plan) {
+        return this.getPlans().contains(plan);
+    }
+
+    public User tagWith(Plan plan) {
+        if(!this.isTaggedWith(plan))
+            this.getPlans().add(plan);
+        return this;
+    }
+
+    public User untagWith(Plan plan) {
+        if(!this.isTaggedWith(plan))
+            this.getPlans().remove(plan);
+        return this;
+    }
+
 }

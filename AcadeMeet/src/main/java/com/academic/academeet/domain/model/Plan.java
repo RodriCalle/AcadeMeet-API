@@ -11,7 +11,12 @@ public class Plan {
     private Long id;
     private String name;
     private int price;
-    @OneToMany
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    @ManyToMany
     private List<User> users;
 
     public Long getId() {

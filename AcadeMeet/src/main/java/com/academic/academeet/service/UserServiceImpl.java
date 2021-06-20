@@ -1,6 +1,8 @@
 package com.academic.academeet.service;
 
+import com.academic.academeet.domain.model.Plan;
 import com.academic.academeet.domain.model.User;
+import com.academic.academeet.domain.repository.PlanRepository;
 import com.academic.academeet.domain.repository.UserRepository;
 import com.academic.academeet.domain.service.UserService;
 import com.academic.academeet.exception.ResourceNotFoundException;
@@ -16,9 +18,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PlanRepository planRepository;
+
     @Override
     public List<User> getAllUsersByPlanId(Long planid) {
-        return userRepository.findAllByPlanId(planid);
+        return userRepository.findAllByPlansId(planid);
     }
 
     @Override
@@ -54,5 +59,27 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User","Id", userid
                 ));
+    }
+
+    @Override
+    public User assignUserPlan(Long userid, Long planid) {
+        Plan plan = planRepository.findById(planid)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Plan", "Id", planid));
+        return userRepository.findById(userid).map(
+                carrer -> userRepository.save(carrer.tagWith(plan)))
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User", "Id", userid));
+    }
+
+    @Override
+    public User unassignUserPlan(Long userid, Long planid) {
+        Plan plan = planRepository.findById(planid)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Plan", "Id", planid));
+        return userRepository.findById(userid).map(
+                carrer -> userRepository.save(carrer.untagWith(plan)))
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User", "Id", userid));
     }
 }

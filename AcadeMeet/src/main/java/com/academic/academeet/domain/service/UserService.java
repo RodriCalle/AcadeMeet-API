@@ -11,4 +11,7 @@ public interface UserService {
     User createUser(User user);
     User updateUser(Long userid, User user);
     ResponseEntity<?> deleteUser(Long userid);
+
+    User assignUserPlan(Long userid, Long planid);
+    User unassignUserPlan(Long userid, Long planid);
 }
