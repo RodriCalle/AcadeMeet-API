@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "teachers")
-public class Teacher {
+@Table(name = "tutors")
+public class Tutor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -18,14 +18,14 @@ public class Teacher {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "teachers")
+            mappedBy = "tutors")
     private List<Carrer> carrers = new ArrayList<>();
 
     public Long getId() {
         return Id;
     }
 
-    public Teacher setId(Long id) {
+    public Tutor setId(Long id) {
         Id = id;
         return this;
     }
@@ -34,7 +34,7 @@ public class Teacher {
         return name;
     }
 
-    public Teacher setName(String name) {
+    public Tutor setName(String name) {
         this.name = name;
         return this;
     }

@@ -3,7 +3,7 @@ package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Carrer;
 import com.academic.academeet.domain.service.ICarrerService;
-import com.academic.academeet.domain.service.ITeacherService;
+import com.academic.academeet.domain.service.ITutorService;
 import com.academic.academeet.domain.service.IUniversityService;
 import com.academic.academeet.resource.CarrerResource;
 import com.academic.academeet.resource.SaveCarrerResource;
@@ -29,7 +29,7 @@ public class CarrerController {
     @Autowired
     private ICarrerService carrerService;
     @Autowired
-    private ITeacherService teacherService;
+    private ITutorService tutorService;
 
     public Carrer convertToEntity(SaveCarrerResource resource){
         return modelMapper.map(resource,Carrer.class);
@@ -71,14 +71,14 @@ public class CarrerController {
         return new PageImpl<>(resources,pageable,resources.size());
     }
 
-    @PostMapping("/carrers/{carrerId}/teachers/{teacherId}")
-    public CarrerResource assignCarrerTeacher(@PathVariable Long carrerId, @PathVariable Long teacherId) {
-        return convertToResource(carrerService.assignCarrerTeacher(carrerId, teacherId));
+    @PostMapping("/carrers/{carrerId}/tutors/{tutorId}")
+    public CarrerResource assignCarrerTutor(@PathVariable Long carrerId, @PathVariable Long tutorId) {
+        return convertToResource(carrerService.assignCarrerTutor(carrerId, tutorId));
     }
 
-    @DeleteMapping("/posts/{postId}/tags/{tagId}")
-    public CarrerResource unassignCarrerTeacher(@PathVariable Long carrerId, @PathVariable Long teacherId) {
-        return convertToResource(carrerService.unassignCarrerTeacher(carrerId, teacherId));
+    @DeleteMapping("/carrers/{carrerId}/tutors/{tutorId}")
+    public CarrerResource unassignCarrerTutor(@PathVariable Long carrerId, @PathVariable Long tutorId) {
+        return convertToResource(carrerService.unassignCarrerTutor(carrerId, tutorId));
     }
 
 }

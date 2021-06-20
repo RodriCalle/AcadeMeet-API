@@ -25,16 +25,16 @@ public class Carrer {
     @JsonIgnore
     private University university;
 
-    public List<Teacher> getTeachers() {
-        return teachers;
+    public List<Tutor> getTutors() {
+        return tutors;
     }
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "teacher_carrers",
+    @JoinTable(name = "tutor_carrers",
             joinColumns = {@JoinColumn(name = "carrer_id")},
-            inverseJoinColumns = { @JoinColumn(name = "teacher_id")})
-    private List<Teacher> teachers = new ArrayList<>();
+            inverseJoinColumns = { @JoinColumn(name = "tutor_id")})
+    private List<Tutor> tutors = new ArrayList<>();
 
     public Carrer() {
     }
@@ -66,19 +66,19 @@ public class Carrer {
         return this;
     }
 
-    public boolean isTaggedWith(Teacher teacher) {
-        return this.getTeachers().contains(teacher);
+    public boolean isTaggedWith(Tutor tutor) {
+        return this.getTutors().contains(tutor);
     }
 
-    public Carrer tagWith(Teacher teacher) {
-        if(!this.isTaggedWith(teacher))
-            this.getTeachers().add(teacher);
+    public Carrer tagWith(Tutor tutor) {
+        if(!this.isTaggedWith(tutor))
+            this.getTutors().add(tutor);
         return this;
     }
 
-    public Carrer untagWith(Teacher teacher) {
-        if(!this.isTaggedWith(teacher))
-            this.getTeachers().remove(teacher);
+    public Carrer untagWith(Tutor tutor) {
+        if(!this.isTaggedWith(tutor))
+            this.getTutors().remove(tutor);
         return this;
     }
 

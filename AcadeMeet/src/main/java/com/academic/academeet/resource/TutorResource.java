@@ -1,6 +1,6 @@
 package com.academic.academeet.resource;
 
-public class TeacherResource {
+public class TutorResource {
     private Long Id;
     private String name;
 
@@ -8,7 +8,7 @@ public class TeacherResource {
         return Id;
     }
 
-    public TeacherResource setId(Long id) {
+    public TutorResource setId(Long id) {
         Id = id;
         return this;
     }
@@ -17,7 +17,7 @@ public class TeacherResource {
         return name;
     }
 
-    public TeacherResource setName(String name) {
+    public TutorResource setName(String name) {
         this.name = name;
         return this;
     }

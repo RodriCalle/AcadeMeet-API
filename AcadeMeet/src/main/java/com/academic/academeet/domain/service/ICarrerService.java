@@ -2,7 +2,6 @@ package com.academic.academeet.domain.service;
 
 
 import com.academic.academeet.domain.model.Carrer;
-import com.academic.academeet.domain.model.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,6 @@ public interface ICarrerService {
     Carrer getCarrerById(Long carrerId);
     ResponseEntity<?> deleteCarrer(Long universityId, Long carrerId);
 
-    Carrer assignCarrerTeacher(Long carrerId, Long teacherId);
-    Carrer unassignCarrerTeacher(Long carrerId, Long teacherId);
+    Carrer assignCarrerTutor(Long carrerId, Long teacherId);
+    Carrer unassignCarrerTutor(Long carrerId, Long teacherId);
 }

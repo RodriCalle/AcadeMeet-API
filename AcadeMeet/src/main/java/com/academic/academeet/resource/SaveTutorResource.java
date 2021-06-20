@@ -1,13 +1,13 @@
 package com.academic.academeet.resource;
 
-public class SaveTeacherResource {
+public class SaveTutorResource {
     private String name;
 
     public String getName() {
         return name;
     }
 
-    public SaveTeacherResource setName(String name) {
+    public SaveTutorResource setName(String name) {
         this.name = name;
         return this;
     }

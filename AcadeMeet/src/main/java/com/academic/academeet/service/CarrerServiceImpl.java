@@ -2,9 +2,9 @@ package com.academic.academeet.service;
 
 
 import com.academic.academeet.domain.model.Carrer;
-import com.academic.academeet.domain.model.Teacher;
+import com.academic.academeet.domain.model.Tutor;
 import com.academic.academeet.domain.repository.ICarrerRepository;
-import com.academic.academeet.domain.repository.ITeacherRepository;
+import com.academic.academeet.domain.repository.ITutorRepository;
 import com.academic.academeet.domain.repository.IUniversityRepository;
 import com.academic.academeet.domain.service.ICarrerService;
 import com.academic.academeet.exception.ResourceNotFoundException;
@@ -21,7 +21,7 @@ public class CarrerServiceImpl implements ICarrerService {
     @Autowired
     private ICarrerRepository carrerRepository;
     @Autowired
-    private ITeacherRepository teacherRepository;
+    private ITutorRepository teacherRepository;
 
     @Override
     public Carrer createCarrer(Long universityId, Carrer carrer) {
@@ -61,23 +61,23 @@ public class CarrerServiceImpl implements ICarrerService {
     }
 
     @Override
-    public Carrer unassignCarrerTeacher(Long carrerId, Long teacherId) {
-        Teacher teacher = teacherRepository.findById(teacherId)
+    public Carrer unassignCarrerTutor(Long carrerId, Long teacherId) {
+        Tutor tutor = teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Teacher", "Id", teacherId));
+                        "Tutor", "Id", teacherId));
         return carrerRepository.findById(carrerId).map(
-                carrer -> carrerRepository.save(carrer.untagWith(teacher)))
+                carrer -> carrerRepository.save(carrer.untagWith(tutor)))
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Carrer", "Id", carrerId));
     }
 
     @Override
-    public Carrer assignCarrerTeacher(Long carrerId, Long teacherId) {
-        Teacher teacher = teacherRepository.findById(teacherId)
+    public Carrer assignCarrerTutor(Long carrerId, Long teacherId) {
+        Tutor tutor = teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Teacher", "Id", teacherId));
+                        "Tutor", "Id", teacherId));
         return carrerRepository.findById(carrerId).map(
-                carrer -> carrerRepository.save(carrer.tagWith(teacher)))
+                carrer -> carrerRepository.save(carrer.tagWith(tutor)))
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Carrer", "Id", carrerId));
     }
