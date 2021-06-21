@@ -25,7 +25,6 @@ public class CarrerServiceImpl implements ICarrerService {
 
     @Override
     public Carrer createCarrer(Long universityId, Carrer carrer) {
-        //Bien asi se debe hacer
         return universityRepository.findById(universityId).map(university->{
             carrer.setUniversity(university);
             return carrerRepository.save(carrer);

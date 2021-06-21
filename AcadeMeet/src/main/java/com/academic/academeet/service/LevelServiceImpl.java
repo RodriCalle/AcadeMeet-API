@@ -1,7 +1,6 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Level;
-import com.academic.academeet.domain.model.Student;
 import com.academic.academeet.domain.repository.LevelRepository;
 import com.academic.academeet.domain.repository.StudentRepository;
 import com.academic.academeet.domain.service.LevelService;
