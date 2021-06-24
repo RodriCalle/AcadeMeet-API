@@ -1,6 +1,7 @@
 package com.academic.academeet.domain.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -15,6 +16,14 @@ public class Student {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private School school;
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    mappedBy = "students")
+    private List<Course> courses;
 
     public Long getId() {
         return id;

@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
                     return ResponseEntity.ok().build();
                 })
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "User","Id", userid
+                        "User", "Id", userid
                 ));
     }
 
