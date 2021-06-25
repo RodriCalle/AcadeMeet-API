@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class LevelsController {
+public class LevelController {
 
     @Autowired
     private LevelService levelService;

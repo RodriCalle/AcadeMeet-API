@@ -1,14 +1,19 @@
 package com.academic.academeet.resource;
 
-public class SaveTutorResource {
-    private String name;
+import lombok.Data;
 
-    public String getName() {
-        return name;
+import java.util.Date;
+
+@Data
+public class SaveTutorResource extends SaveUserResource{
+    private Date hireDate;
+
+    public Date getHireDate() {
+        return hireDate;
     }
 
-    public SaveTutorResource setName(String name) {
-        this.name = name;
+    public SaveTutorResource setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
         return this;
     }
 }

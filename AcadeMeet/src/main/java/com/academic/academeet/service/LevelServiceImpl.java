@@ -62,7 +62,7 @@ public class LevelServiceImpl implements LevelService {
                 .map(student -> {
                     Level level = levelRepository.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", id));
-                    student.setLevel(level);
+                    //student.setLevel(level);
                     studentRepository.save(student);
                     return level;
                 })

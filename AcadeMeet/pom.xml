@@ -12,7 +12,7 @@
     <artifactId>AcadeMeet</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>AcadeMeet</name>
-    <description>Demo project for Spring Boot</description>
+    <description>RESTFul API developed for AcadeMeet</description>
     <properties>
         <java.version>11</java.version>
     </properties>

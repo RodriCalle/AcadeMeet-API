@@ -7,6 +7,10 @@ import com.academic.academeet.domain.service.ITutorService;
 import com.academic.academeet.domain.service.IUniversityService;
 import com.academic.academeet.resource.CarrerResource;
 import com.academic.academeet.resource.SaveCarrerResource;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,30 +42,70 @@ public class CarrerController {
         return modelMapper.map(entity,CarrerResource.class);
     }
 
+    @Operation(summary = "Add Carrer"
+            , description = "Add Carrer By Id"
+            , tags = {"carrers"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"
+                    ,description = "Add Carrer By Id"
+                    ,content = @Content(mediaType = "application/jason"))
+    })
     @PostMapping("/universities/{universityId}/carrers")
     public CarrerResource createCarrer(@PathVariable Long universityId, @Valid @RequestBody SaveCarrerResource resource){
         Carrer carrer = convertToEntity(resource);
         return convertToResource(carrerService.createCarrer(universityId,carrer));
     }
 
+    @Operation(summary = "Get Carrer"
+            , description = "Get Carrer By Id"
+            , tags = {"carrers"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"
+                    ,description = "Get Carrer By Id"
+                    ,content = @Content(mediaType = "application/jason"))
+    })
     @GetMapping("/carrers/{carrerId}")
     public CarrerResource getCarrerById(@PathVariable Long carrerId){
         Carrer carrer = carrerService.getCarrerById(carrerId);
         return convertToResource(carrer);
     }
 
+    @Operation(summary = "Update Carrer"
+            , description = "Update Carrer By Id"
+            , tags = {"carrers"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"
+                    ,description = "Update Carrer By Id"
+                    ,content = @Content(mediaType = "application/jason"))
+    })
     @PutMapping("/universities/{universityId}/carrers/{carrerId}")
     public CarrerResource updateCarrer(@PathVariable Long universityId,@PathVariable Long carrerId,@Valid @RequestBody SaveCarrerResource resource){
         Carrer carrer = convertToEntity(resource);
         return convertToResource(carrerService.updateCarrer(universityId,carrerId,carrer));
     }
 
+    @Operation(summary = "Delete Carrer"
+            , description = "Delete Carrer By Id"
+            , tags = {"carrers"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"
+                    ,description = "Delete Carrer By Id"
+                    ,content = @Content(mediaType = "application/jason"))
+    })
     @DeleteMapping("/universities/{universityId}/carrers/{carrerId}")
     public ResponseEntity<?> deleteCarrer(@PathVariable Long universityId,@PathVariable Long carrerId){
         carrerService.deleteCarrer(universityId,carrerId);
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Get All Carrers"
+            , description = "Get All Carrers"
+            , tags = {"carrers"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"
+                    ,description = "Get All Carrers"
+                    ,content = @Content(mediaType = "application/jason"))
+    })
     @GetMapping("/carrers")
     public Page<CarrerResource> getAllCarrers(Pageable pageable){
         Page<Carrer> carrerPage = carrerService.getAll(pageable);
@@ -71,14 +115,29 @@ public class CarrerController {
         return new PageImpl<>(resources,pageable,resources.size());
     }
 
+    @Operation(summary = "Assign Carrer To Tutor"
+            , description = "Assign Carrer To Tutor with Id"
+            , tags = {"carrers"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"
+                    ,description = "Assign Carrer To Tutor with Id"
+                    ,content = @Content(mediaType = "application/jason"))
+    })
     @PostMapping("/carrers/{carrerId}/tutors/{tutorId}")
     public CarrerResource assignCarrerTutor(@PathVariable Long carrerId, @PathVariable Long tutorId) {
         return convertToResource(carrerService.assignCarrerTutor(carrerId, tutorId));
     }
 
+    @Operation(summary = "Unassign Carrer To Tutor"
+            , description = "Unassign Carrer To Tutor with Id"
+            , tags = {"carrers"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"
+                    ,description = "Unassign Carrer To Tutor with Id"
+                    ,content = @Content(mediaType = "application/jason"))
+    })
     @DeleteMapping("/carrers/{carrerId}/tutors/{tutorId}")
     public CarrerResource unassignCarrerTutor(@PathVariable Long carrerId, @PathVariable Long tutorId) {
         return convertToResource(carrerService.unassignCarrerTutor(carrerId, tutorId));
     }
-
 }

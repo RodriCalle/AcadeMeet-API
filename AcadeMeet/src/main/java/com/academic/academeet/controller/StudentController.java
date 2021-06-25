@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class StudentsController {
+public class StudentController {
 
     @Autowired
     private StudentService studentService;
@@ -40,8 +40,8 @@ public class StudentsController {
     }
 
     @PostMapping("/students")
-    public StudentResource createStudent(SaveStudentResource resource) {
-        return convertToResource(studentService.saveStudent(convertToEntity(resource)));
+    public StudentResource createStudent(@RequestBody SaveStudentResource resource) {
+        return convertToResource(studentService.createStudent(convertToEntity(resource)));
     }
 
     @DeleteMapping("/students/{id}")

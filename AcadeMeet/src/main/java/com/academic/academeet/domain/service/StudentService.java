@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 public interface StudentService {
     Page<Student> getAllStudents(Pageable pageable);
     Student getStudentById(Long id);
-    Student saveStudent(Student student);
+    Student createStudent(Student student);
+    Student updateStudent(Long studentId, Student studentDetails);
     ResponseEntity<?> deleteStudent(Long id);
 }

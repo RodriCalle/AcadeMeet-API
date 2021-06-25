@@ -1,43 +1,33 @@
 package com.academic.academeet.domain.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+@EqualsAndHashCode
+@Data
 @Entity
 @Table(name = "tutors")
-public class Tutor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+public class Tutor extends User{
+    private Date hireDate;
 
-    @Size(max = 80)
-    @NotNull
-    private String name;
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public Tutor setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+        return this;
+    }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "tutors")
     private List<Carrer> carrers = new ArrayList<>();
-
-    public Long getId() {
-        return Id;
-    }
-
-    public Tutor setId(Long id) {
-        Id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Tutor setName(String name) {
-        this.name = name;
-        return this;
-    }
 
     public List<Carrer> getCarrers() {
         return carrers;

@@ -1,5 +1,6 @@
 package com.academic.academeet.resource;
 
+
 public class SaveUserResource {
     private String first_name;
     private String last_name;
@@ -10,31 +11,35 @@ public class SaveUserResource {
         return first_name;
     }
 
-    public void setFirst_name(String first_name) {
+    public SaveUserResource setFirst_name(String first_name) {
         this.first_name = first_name;
+        return this;
     }
 
     public String getLast_name() {
         return last_name;
     }
 
-    public void setLast_name(String last_name) {
+    public SaveUserResource setLast_name(String last_name) {
         this.last_name = last_name;
+        return this;
     }
 
     public String getMail() {
         return mail;
     }
 
-    public void setMail(String mail) {
+    public SaveUserResource setMail(String mail) {
         this.mail = mail;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public SaveUserResource setPassword(String password) {
         this.password = password;
+        return this;
     }
 }

@@ -31,7 +31,11 @@ public class TutorServiceImpl implements ITutorService {
         Tutor tutor = tutorRepository.findById(tutorId)
                 .orElseThrow(()-> new ResourceNotFoundException("Tutor", "Id", tutorId));
 
-        tutor.setName(tutorDetails.getName());
+        tutor.setFirst_name(tutorDetails.getFirst_name());
+        tutor.setLast_name(tutorDetails.getLast_name());
+        tutor.setMail(tutorDetails.getMail());
+        tutor.setPassword(tutorDetails.getPassword());
+        tutor.setHireDate(tutorDetails.getHireDate());
         return tutorRepository.save(tutor);
     }
 

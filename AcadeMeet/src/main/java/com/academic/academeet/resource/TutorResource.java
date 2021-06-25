@@ -1,24 +1,19 @@
 package com.academic.academeet.resource;
 
-public class TutorResource {
-    private Long Id;
-    private String name;
+import lombok.Data;
 
-    public Long getId() {
-        return Id;
+import java.util.Date;
+
+@Data
+public class TutorResource extends UserResource {
+    private Date hireDate;
+
+    public Date getHireDate() {
+        return hireDate;
     }
 
-    public TutorResource setId(Long id) {
-        Id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public TutorResource setName(String name) {
-        this.name = name;
+    public TutorResource setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
         return this;
     }
 }

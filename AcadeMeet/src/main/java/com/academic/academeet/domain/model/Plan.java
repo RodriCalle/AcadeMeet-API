@@ -16,7 +16,8 @@ public class Plan {
         return users;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "plans")
     private List<User> users;
 
     public Long getId() {

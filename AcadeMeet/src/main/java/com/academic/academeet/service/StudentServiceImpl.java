@@ -1,6 +1,7 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Student;
+import com.academic.academeet.domain.model.Tutor;
 import com.academic.academeet.domain.repository.StudentRepository;
 import com.academic.academeet.domain.service.StudentService;
 import com.academic.academeet.exception.ResourceNotFoundException;
@@ -17,19 +18,27 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public Page<Student> getAllStudents(Pageable pageable) {
-        return studentRepository.findAll(pageable);
+    public Student createStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public Student updateStudent(Long studentId, Student studentDetails) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Student", "Id", studentId));
+
+        student.setFirst_name(studentDetails.getFirst_name());
+        student.setLast_name(studentDetails.getLast_name());
+        student.setMail(studentDetails.getMail());
+        student.setPassword(studentDetails.getPassword());
+        student.setBornDate(studentDetails.getBornDate());
+        return studentRepository.save(student);
     }
 
     @Override
     public Student getStudentById(Long id) {
         return studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", "Id", id));
-    }
-
-    @Override
-    public Student saveStudent(Student student) {
-        return studentRepository.save(student);
     }
 
     @Override
@@ -41,5 +50,8 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Student", "Id", id));
     }
 
-
+    @Override
+    public Page<Student> getAllStudents(Pageable pageable) {
+        return studentRepository.findAll(pageable);
+    }
 }

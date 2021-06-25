@@ -29,7 +29,6 @@ public class Carrer {
         return tutors;
     }
 
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "tutor_carrers",
             joinColumns = {@JoinColumn(name = "carrer_id")},

@@ -4,7 +4,6 @@ package com.academic.academeet.domain.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Table(name = "universities")

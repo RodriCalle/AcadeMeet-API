@@ -1,28 +1,34 @@
 package com.academic.academeet.domain.model;
 
-import javax.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
 @Table(name = "students")
-public class Student {
+public class Student extends User {
+    private Date bornDate;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Date getBornDate() {
+        return bornDate;
+    }
 
+    public Student setBornDate(Date bornDate) {
+        this.bornDate = bornDate;
+        return this;
+    }
+
+    //Comenta estas relaciones y funciona pero debes implementarlo en el controller pidiento pathVariable
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Level level;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private School school;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Level getLevel() {
         return level;
