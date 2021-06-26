@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-public interface LevelService {
+public interface ILevelService {
     Page<Level> getAllLevels(Pageable pageable);
     Level getLevelById(Long id);
     Level createLevel(Level level);

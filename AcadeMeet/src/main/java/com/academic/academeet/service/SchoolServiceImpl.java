@@ -2,7 +2,7 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.School;
 import com.academic.academeet.domain.repository.SchoolRepository;
-import com.academic.academeet.domain.service.SchoolService;
+import com.academic.academeet.domain.service.ISchoolService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SchoolServiceImpl implements SchoolService {
+public class SchoolServiceImpl implements ISchoolService {
 
     @Autowired
     private SchoolRepository schoolRepository;

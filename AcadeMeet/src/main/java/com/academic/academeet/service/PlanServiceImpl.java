@@ -2,7 +2,7 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Plan;
 import com.academic.academeet.domain.repository.PlanRepository;
-import com.academic.academeet.domain.service.PlanService;
+import com.academic.academeet.domain.service.IPlanService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PlanServiceImpl implements PlanService {
+public class PlanServiceImpl implements IPlanService {
 
     @Autowired
     private PlanRepository planRepository;

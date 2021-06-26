@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
     List<User> getAllUsersByPlanId(Long planid);
     List<User> getAllUsers();
     User createUser(User user);

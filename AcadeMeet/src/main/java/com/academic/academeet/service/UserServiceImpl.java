@@ -4,7 +4,7 @@ import com.academic.academeet.domain.model.Plan;
 import com.academic.academeet.domain.model.User;
 import com.academic.academeet.domain.repository.PlanRepository;
 import com.academic.academeet.domain.repository.UserRepository;
-import com.academic.academeet.domain.service.UserService;
+import com.academic.academeet.domain.service.IUserService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserRepository userRepository;

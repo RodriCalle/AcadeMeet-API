@@ -1,7 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Plan;
-import com.academic.academeet.domain.service.PlanService;
+import com.academic.academeet.domain.service.IPlanService;
 import com.academic.academeet.resource.PlanResource;
 import com.academic.academeet.resource.SavePlanResource;
 import org.modelmapper.ModelMapper;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,13 +16,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class PlanController {
     @Autowired
-    private PlanService planService;
+    private IPlanService IPlanService;
     @Autowired
     private ModelMapper mapper;
 
     @GetMapping("/plans")
     public List<PlanResource> getAllPlans(){
-        return planService.getAllPlans()
+        return IPlanService.getAllPlans()
                 .stream()
                 .map(
                         plan -> mapper.map(plan,PlanResource.class)
@@ -33,18 +32,18 @@ public class PlanController {
     @PostMapping("/plans")
     public PlanResource savePlan(@RequestBody SavePlanResource resource){
         Plan plan = convertToEntity(resource);
-        return convertToResource(planService.createPlan(plan));
+        return convertToResource(IPlanService.createPlan(plan));
     }
 
     @PutMapping("/plans/{id}")
     public PlanResource updatePlan(@PathVariable Long id,@RequestBody SavePlanResource resource){
         Plan plan = convertToEntity(resource);
-        return convertToResource(planService.updatePlan(id, plan));
+        return convertToResource(IPlanService.updatePlan(id, plan));
     }
 
     @DeleteMapping("/plans/{id}")
     public ResponseEntity<?> deletePlan(@PathVariable Long id){
-        return planService.deletePlan(id);
+        return IPlanService.deletePlan(id);
     }
 
     private Plan convertToEntity(SavePlanResource resource){

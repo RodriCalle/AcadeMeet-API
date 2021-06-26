@@ -16,11 +16,6 @@ public class University {
     @NotNull
     private String Name;
 
-    //Relacion una universidad a muchos carreras el FK university_id se crea en carrers
-    /*@OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
-    @JoinColumn(name = "university_id", nullable = false)
-    private List<Carrer> carrers;*/
-
     public University() {
     }
 

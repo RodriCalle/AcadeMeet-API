@@ -1,7 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Notification;
-import com.academic.academeet.domain.service.NotificationService;
+import com.academic.academeet.domain.service.INotificationService;
 import com.academic.academeet.resource.NotificationResource;
 import com.academic.academeet.resource.SaveNotificationResource;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class NotificationsController {
 
     @Autowired
-    private NotificationService notificationService;
+    private INotificationService INotificationService;
 
     @Autowired
     private ModelMapper mapper;
@@ -25,24 +25,24 @@ public class NotificationsController {
     @PostMapping("/notifications")
     public NotificationResource createNotification(@Valid @RequestBody SaveNotificationResource resource) {
         Notification notification = convertToEntity(resource);
-        return convertToResource(notificationService.saveNotification(notification));
+        return convertToResource(INotificationService.saveNotification(notification));
     }
 
     @GetMapping("/notifications/{id}")
     public NotificationResource getNotificationById(@PathVariable Long id) {
-        Notification notification = notificationService.getById(id);
+        Notification notification = INotificationService.getById(id);
         return convertToResource(notification);
     }
 
     @PutMapping("/notifications/{id}")
     public NotificationResource updateNotification(@PathVariable Long id, @Valid @RequestBody SaveNotificationResource resource) {
         Notification notification = convertToEntity(resource);
-        return convertToResource(notificationService.updateNotification(id, notification));
+        return convertToResource(INotificationService.updateNotification(id, notification));
     }
 
     @DeleteMapping("/notifications/{id}")
     public ResponseEntity<?> deleteNotification(@PathVariable Long id) {
-        notificationService.deleteNotification(id);
+        INotificationService.deleteNotification(id);
         return ResponseEntity.ok().build();
     }
 

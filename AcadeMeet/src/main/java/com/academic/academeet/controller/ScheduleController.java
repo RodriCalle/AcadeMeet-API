@@ -1,9 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Schedule;
-import com.academic.academeet.domain.model.TypeOfGrade;
-import com.academic.academeet.domain.service.ScheduleService;
-import com.academic.academeet.domain.service.TypeOfGradeService;
+import com.academic.academeet.domain.service.IScheduleService;
 import com.academic.academeet.resource.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +19,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class ScheduleController {
     @Autowired
-    private ScheduleService scheduleService;
+    private IScheduleService IScheduleService;
 
     @Autowired
     private ModelMapper mapper;
 
     @GetMapping("/schedules")
     public Page<ScheduleResource> getSchedules(Pageable pageable) {
-        List<ScheduleResource> schools = scheduleService.getAllSchedules(pageable)
+        List<ScheduleResource> schools = IScheduleService.getAllSchedules(pageable)
                 .getContent().stream().map(this::convertToResource).
                         collect(Collectors.toList());
         int schoolCount = schools.size();
@@ -37,23 +35,23 @@ public class ScheduleController {
 
     @GetMapping("/schedules/{id}")
     public ScheduleResource getScheduleById(@PathVariable Long id) {
-        return convertToResource(scheduleService.getScheduleById(id));
+        return convertToResource(IScheduleService.getScheduleById(id));
     }
 
     @PostMapping("/schedules")
     public ScheduleResource createSchedule(@RequestBody SaveScheduleResource resource) {
-        return convertToResource(scheduleService.saveSchedule(convertToEntity(resource)));
+        return convertToResource(IScheduleService.saveSchedule(convertToEntity(resource)));
     }
 
 
     @PutMapping("/schedule/{id}")
     public ScheduleResource updateSchedule(@PathVariable Long id, @Valid @RequestBody SaveScheduleResource resource) {
-        return convertToResource(scheduleService.updateSchedule(id,convertToEntity(resource)));
+        return convertToResource(IScheduleService.updateSchedule(id,convertToEntity(resource)));
     }
 
     @DeleteMapping("/schedule/{id}")
     public ResponseEntity<?> deleteSchedule(@PathVariable Long id) {
-        return scheduleService.deleteSchedule(id);
+        return IScheduleService.deleteSchedule(id);
     }
 
     private Schedule convertToEntity(SaveScheduleResource resource) {

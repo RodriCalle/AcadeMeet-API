@@ -2,7 +2,7 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.LessonType;
 import com.academic.academeet.domain.repository.LessonTypeRepository;
-import com.academic.academeet.domain.service.LessonTypeService;
+import com.academic.academeet.domain.service.ILessonTypeService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LessonTypeServiceImpl implements LessonTypeService {
+public class LessonTypeServiceImpl implements ILessonTypeService {
     @Autowired
     private LessonTypeRepository lessonTypeRepository;
 
@@ -40,7 +40,7 @@ public class LessonTypeServiceImpl implements LessonTypeService {
                     LessonType1.setStudents_quantity(lessonType.getStudents_quantity());
                     return lessonTypeRepository.save(LessonType1);
                 }
-        ).orElseThrow(() -> new ResourceNotFoundException("LessonType", "Id", lessonType));
+        ).orElseThrow(() -> new ResourceNotFoundException("LessonType", "Id", lessonTypeId));
     }
 
     @Override

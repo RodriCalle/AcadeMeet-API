@@ -2,8 +2,7 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.NotificationType;
 import com.academic.academeet.domain.repository.NotificationTypeRepository;
-import com.academic.academeet.domain.service.NotificationService;
-import com.academic.academeet.domain.service.NotificationTypeService;
+import com.academic.academeet.domain.service.INotificationTypeService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NotificationTypeServiceImpl implements NotificationTypeService {
+public class NotificationTypeServiceImpl implements INotificationTypeService {
 
     @Autowired
     private NotificationTypeRepository notificationTypeRepository;

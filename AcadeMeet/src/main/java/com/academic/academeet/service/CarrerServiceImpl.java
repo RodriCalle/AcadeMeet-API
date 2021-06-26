@@ -21,7 +21,7 @@ public class CarrerServiceImpl implements ICarrerService {
     @Autowired
     private ICarrerRepository carrerRepository;
     @Autowired
-    private ITutorRepository teacherRepository;
+    private ITutorRepository tutorRepository;
 
     @Override
     public Carrer createCarrer(Long universityId, Carrer carrer) {
@@ -61,7 +61,7 @@ public class CarrerServiceImpl implements ICarrerService {
 
     @Override
     public Carrer unassignCarrerTutor(Long carrerId, Long teacherId) {
-        Tutor tutor = teacherRepository.findById(teacherId)
+        Tutor tutor = tutorRepository.findById(teacherId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Tutor", "Id", teacherId));
         return carrerRepository.findById(carrerId).map(
@@ -72,7 +72,7 @@ public class CarrerServiceImpl implements ICarrerService {
 
     @Override
     public Carrer assignCarrerTutor(Long carrerId, Long teacherId) {
-        Tutor tutor = teacherRepository.findById(teacherId)
+        Tutor tutor = tutorRepository.findById(teacherId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Tutor", "Id", teacherId));
         return carrerRepository.findById(carrerId).map(

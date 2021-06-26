@@ -16,9 +16,6 @@ public class LessonType {
 
     private int students_quantity;
 
-    //@OneToMany(fetch = FetchType.LAZY, optional = false)
-    //private List<Lesson> lesson;
-
     public Long getId() {
         return id;
     }

@@ -2,7 +2,7 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Schedule;
 import com.academic.academeet.domain.repository.ScheduleRepository;
-import com.academic.academeet.domain.service.ScheduleService;
+import com.academic.academeet.domain.service.IScheduleService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ScheduleServiceImpl implements ScheduleService {
+public class ScheduleServiceImpl implements IScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
 

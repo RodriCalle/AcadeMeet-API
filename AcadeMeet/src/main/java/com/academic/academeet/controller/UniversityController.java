@@ -28,7 +28,6 @@ public class UniversityController {
     @Autowired
     private IUniversityService universityService;
 
-    //Conversiones de SaveResource a model y de model a Resource
     public University convertToEntity(SaveUniversityResource resource){
         return modelMapper.map(resource,University.class);
     }
@@ -39,11 +38,6 @@ public class UniversityController {
     @Operation(summary = "Add University"
             , description = "Add University By Id"
             , tags = {"universities"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Add University By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @PostMapping("/universities")
     public UniversityResource createUniversity(@Valid @RequestBody SaveUniversityResource resource){
         University uni = convertToEntity(resource);
@@ -53,11 +47,6 @@ public class UniversityController {
     @Operation(summary = "Get University"
             , description = "Get University By Id"
             , tags = {"universities"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Get University By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @GetMapping("/universities/{universityId}")
     public UniversityResource getUniversityById(@PathVariable Long universityId){
         University uni = universityService.getUniversityById(universityId);
@@ -67,11 +56,6 @@ public class UniversityController {
     @Operation(summary = "Update University"
             , description = "Update University By Id"
             , tags = {"universities"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Update University By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @PutMapping("/universities/{universityId}")
     public UniversityResource updateUniversity(@PathVariable Long universityId, @Valid @RequestBody SaveUniversityResource resource){
         University uni = convertToEntity(resource);
@@ -81,11 +65,6 @@ public class UniversityController {
     @Operation(summary = "Delete University"
             , description = "Delete University By Id"
             , tags = {"universities"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Delete University By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @DeleteMapping("/universities/{universityId}")
     public ResponseEntity<?> deleteUniversity(@PathVariable Long universityId){
         universityService.deleteUniversity(universityId);
@@ -95,11 +74,6 @@ public class UniversityController {
     @Operation(summary = "Get All Universities"
             , description = "Get All Universities"
             , tags = {"universities"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Get All Universities"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @GetMapping("/universities")
     public Page<UniversityResource> getAllUniversities(Pageable pageable){
         Page<University> universityPage = universityService.getAll(pageable);

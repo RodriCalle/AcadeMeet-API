@@ -1,7 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.School;
-import com.academic.academeet.domain.service.SchoolService;
+import com.academic.academeet.domain.service.ISchoolService;
 import com.academic.academeet.resource.SaveSchoolResource;
 import com.academic.academeet.resource.SchoolResource;
 import org.modelmapper.ModelMapper;
@@ -21,14 +21,14 @@ import java.util.stream.Collectors;
 public class SchoolController {
 
     @Autowired
-    private SchoolService schoolService;
+    private ISchoolService ISchoolService;
 
     @Autowired
     private ModelMapper mapper;
 
     @GetMapping("/schools")
     public Page<SchoolResource> getAllSchools(Pageable pageable) {
-        List<SchoolResource> schools = schoolService.getAllSchools(pageable)
+        List<SchoolResource> schools = ISchoolService.getAllSchools(pageable)
                 .getContent().stream().map(this::convertToResource).
                 collect(Collectors.toList());
         int schoolCount = schools.size();
@@ -37,22 +37,22 @@ public class SchoolController {
 
     @GetMapping("/schools/{id}")
     public SchoolResource getSchoolById(@PathVariable Long id) {
-        return convertToResource(schoolService.getSchoolById(id));
+        return convertToResource(ISchoolService.getSchoolById(id));
     }
 
     @PostMapping("/schools")
     public SchoolResource createSchool(@RequestBody SaveSchoolResource resource) {
-            return convertToResource(schoolService.createSchool(convertToEntity(resource)));
+            return convertToResource(ISchoolService.createSchool(convertToEntity(resource)));
     }
 
     @PutMapping("/school/{id}")
     public SchoolResource updateSchool(@PathVariable Long id, @Valid @RequestBody SaveSchoolResource resource) {
-        return convertToResource(schoolService.updateSchool(id, convertToEntity(resource)));
+        return convertToResource(ISchoolService.updateSchool(id, convertToEntity(resource)));
     }
 
     @DeleteMapping("/school/{id}")
     public ResponseEntity<?> deleteSchool(@PathVariable Long id) {
-        return schoolService.deleteSchool(id);
+        return ISchoolService.deleteSchool(id);
     }
 
 

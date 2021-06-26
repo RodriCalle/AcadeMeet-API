@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface PlanService {
+public interface IPlanService {
     List<Plan> getAllPlansByUserId(Long id);
     List<Plan> getAllPlans();
     Plan createPlan(Plan plan);

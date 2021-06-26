@@ -1,9 +1,8 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Student;
-import com.academic.academeet.domain.model.Tutor;
 import com.academic.academeet.domain.repository.StudentRepository;
-import com.academic.academeet.domain.service.StudentService;
+import com.academic.academeet.domain.service.IStudentService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements IStudentService {
 
     @Autowired
     private StudentRepository studentRepository;

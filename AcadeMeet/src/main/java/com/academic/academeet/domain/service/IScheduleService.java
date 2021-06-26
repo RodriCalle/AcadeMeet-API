@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-public interface ScheduleService {
+public interface IScheduleService {
     Page<Schedule> getAllSchedules(Pageable pageable);
     Schedule getScheduleById(Long id);
     Schedule saveSchedule(Schedule schedule);

@@ -35,11 +35,6 @@ public class TutorController {
     @Operation(summary = "Add Tutor"
             , description = "Add Tutor By Id"
             , tags = {"tutors"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Add Tutor By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @PostMapping("/tutors")
     public TutorResource createTutor(@Valid @RequestBody SaveTutorResource resource){
         Tutor tutor = convertToEntity(resource);
@@ -49,11 +44,6 @@ public class TutorController {
     @Operation(summary = "Get Tutor"
             , description = "Get Tutor By Id"
             , tags = {"tutors"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Get Tutor By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @GetMapping("/tutors/{tutorId}")
     public TutorResource getTutorById(@PathVariable Long tutorId){
         Tutor tutor = tutorService.getTutorById(tutorId);
@@ -63,11 +53,6 @@ public class TutorController {
     @Operation(summary = "Update Tutor"
             , description = "Update Tutor By Id"
             , tags = {"tutors"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Update Tutor By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @PutMapping("/tutors/{tutorId}")
     public TutorResource updateTutor(@PathVariable Long tutorId, @Valid @RequestBody SaveTutorResource resource){
         Tutor tutor = convertToEntity(resource);
@@ -77,11 +62,6 @@ public class TutorController {
     @Operation(summary = "Delete Tutor"
             , description = "Delete Tutor By Id"
             , tags = {"tutors"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200"
-                    ,description = "Delete Tutor By Id"
-                    ,content = @Content(mediaType = "application/jason"))
-    })
     @DeleteMapping("/tutors/{tutorId}")
     public ResponseEntity<?> deleteTutor(@PathVariable Long tutorId){
         tutorService.deleteTutor(tutorId);

@@ -2,7 +2,7 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.TypeOfGrade;
 import com.academic.academeet.domain.repository.TypeOfGradeRepository;
-import com.academic.academeet.domain.service.TypeOfGradeService;
+import com.academic.academeet.domain.service.ITypeOfGradeService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TypeOfGradeServiceImpl implements TypeOfGradeService {
+public class TypeOfGradeServiceImpl implements ITypeOfGradeService {
     @Autowired
     private TypeOfGradeRepository typeOfGradeRepository;
 

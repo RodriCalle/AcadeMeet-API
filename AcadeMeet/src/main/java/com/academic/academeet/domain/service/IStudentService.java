@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-public interface StudentService {
+public interface IStudentService {
     Page<Student> getAllStudents(Pageable pageable);
     Student getStudentById(Long id);
     Student createStudent(Student student);

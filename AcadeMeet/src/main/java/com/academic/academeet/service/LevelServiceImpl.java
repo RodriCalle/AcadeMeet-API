@@ -3,7 +3,7 @@ package com.academic.academeet.service;
 import com.academic.academeet.domain.model.Level;
 import com.academic.academeet.domain.repository.LevelRepository;
 import com.academic.academeet.domain.repository.StudentRepository;
-import com.academic.academeet.domain.service.LevelService;
+import com.academic.academeet.domain.service.ILevelService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LevelServiceImpl implements LevelService {
+public class LevelServiceImpl implements ILevelService {
 
     @Autowired
     private LevelRepository levelRepository;

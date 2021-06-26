@@ -1,7 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Student;
-import com.academic.academeet.domain.service.StudentService;
+import com.academic.academeet.domain.service.IStudentService;
 import com.academic.academeet.resource.SaveStudentResource;
 import com.academic.academeet.resource.StudentResource;
 import org.modelmapper.ModelMapper;
@@ -20,14 +20,14 @@ import java.util.stream.Collectors;
 public class StudentController {
 
     @Autowired
-    private StudentService studentService;
+    private IStudentService IStudentService;
 
     @Autowired
     private ModelMapper mapper;
 
     @GetMapping("/students")
     public Page<StudentResource> getAllStudents(Pageable pageable){
-        List<StudentResource> students = studentService.getAllStudents(pageable)
+        List<StudentResource> students = IStudentService.getAllStudents(pageable)
                 .getContent().stream().map(this::convertToResource)
                 .collect(Collectors.toList());
         int studentsCount = students.size();
@@ -36,17 +36,17 @@ public class StudentController {
 
     @GetMapping("/students/{id}")
     public StudentResource getStudentById(@PathVariable Long id) {
-        return convertToResource(studentService.getStudentById(id));
+        return convertToResource(IStudentService.getStudentById(id));
     }
 
     @PostMapping("/students")
     public StudentResource createStudent(@RequestBody SaveStudentResource resource) {
-        return convertToResource(studentService.createStudent(convertToEntity(resource)));
+        return convertToResource(IStudentService.createStudent(convertToEntity(resource)));
     }
 
     @DeleteMapping("/students/{id}")
     public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
-        return studentService.deleteStudent(id);
+        return IStudentService.deleteStudent(id);
     }
 
     private Student convertToEntity(SaveStudentResource resource) {

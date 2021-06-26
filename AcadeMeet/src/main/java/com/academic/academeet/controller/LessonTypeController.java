@@ -1,7 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.LessonType;
-import com.academic.academeet.domain.service.LessonTypeService;
+import com.academic.academeet.domain.service.ILessonTypeService;
 import com.academic.academeet.resource.LessonTypeResource;
 import com.academic.academeet.resource.SaveLessonTypeResource;
 import org.modelmapper.ModelMapper;
@@ -20,39 +20,39 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class LessonTypeController {
     @Autowired
-    private LessonTypeService lessonTypeService;
+    private ILessonTypeService ILessonTypeService;
 
     @Autowired
     private ModelMapper mapper;
 
-    @GetMapping("/Lesson_types")
+    @GetMapping("/lesson_types")
     public Page<LessonTypeResource> getLessonTypes(Pageable pageable) {
-        List<LessonTypeResource> schools = lessonTypeService.getAllLessonTypes(pageable)
+        List<LessonTypeResource> schools = ILessonTypeService.getAllLessonTypes(pageable)
                 .getContent().stream().map(this::convertToResource).
                         collect(Collectors.toList());
         int schoolCount = schools.size();
         return new PageImpl<>(schools, pageable, schoolCount);
     }
 
-    @GetMapping("/Lesson_types/{id}")
+    @GetMapping("/lesson_types/{id}")
     public LessonTypeResource getLessonTypeById(@PathVariable Long id) {
-        return convertToResource(lessonTypeService.getLessonTypeById(id));
+        return convertToResource(ILessonTypeService.getLessonTypeById(id));
     }
 
-    @PostMapping("/Lesson_types")
+    @PostMapping("/lesson_types")
     public LessonTypeResource createLessonType(@RequestBody SaveLessonTypeResource resource) {
-        return convertToResource(lessonTypeService.saveLessonType(convertToEntity(resource)));
+        return convertToResource(ILessonTypeService.saveLessonType(convertToEntity(resource)));
     }
 
 
-    @PutMapping("/Lesson_type/{id}")
+    @PutMapping("/lesson_type/{id}")
     public LessonTypeResource updateLessonType(@PathVariable Long id, @Valid @RequestBody SaveLessonTypeResource resource) {
-        return convertToResource(lessonTypeService.updateLessonType(id, convertToEntity(resource)));
+        return convertToResource(ILessonTypeService.updateLessonType(id, convertToEntity(resource)));
     }
 
     @DeleteMapping("/lesson_type/{id}")
     public ResponseEntity<?> deleteLessonType(@PathVariable Long id) {
-        return lessonTypeService.deleteLessonType(id);
+        return ILessonTypeService.deleteLessonType(id);
     }
 
     private LessonType convertToEntity(SaveLessonTypeResource resource) {

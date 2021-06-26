@@ -1,7 +1,7 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.TypeOfGrade;
-import com.academic.academeet.domain.service.TypeOfGradeService;
+import com.academic.academeet.domain.service.ITypeOfGradeService;
 import com.academic.academeet.resource.SaveTypeOfGradeResource;
 import com.academic.academeet.resource.TypeOfGradeResource;
 import org.modelmapper.ModelMapper;
@@ -20,14 +20,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class TypeOfGradeController {
     @Autowired
-    private TypeOfGradeService typeOfGradeService;
+    private ITypeOfGradeService ITypeOfGradeService;
 
     @Autowired
     private ModelMapper mapper;
 
     @GetMapping("/type_of_grades")
     public Page<TypeOfGradeResource> getTypeOfGrades(Pageable pageable) {
-        List<TypeOfGradeResource> schools = typeOfGradeService.getAllTypeOfGrades(pageable)
+        List<TypeOfGradeResource> schools = ITypeOfGradeService.getAllTypeOfGrades(pageable)
                 .getContent().stream().map(this::convertToResource).
                         collect(Collectors.toList());
         int schoolCount = schools.size();
@@ -36,26 +36,26 @@ public class TypeOfGradeController {
 
     @GetMapping("/type_of_grades/{id}")
     public TypeOfGradeResource getTypeOfGradeById(@PathVariable Long id) {
-        return convertToResource(typeOfGradeService.getTypeOfGradeById(id));
+        return convertToResource(ITypeOfGradeService.getTypeOfGradeById(id));
 
     }
 
     @PostMapping("/type_of_grades")
     public TypeOfGradeResource createTypeOfGrade(@RequestBody SaveTypeOfGradeResource resource) {
-        return convertToResource(typeOfGradeService.saveTypeOfGrade(convertToEntity(resource)));
+        return convertToResource(ITypeOfGradeService.saveTypeOfGrade(convertToEntity(resource)));
 
     }
 
 
     @PutMapping("/type_of_grade/{id}")
     public TypeOfGradeResource updateTypeOfGrade(@PathVariable Long id, @Valid @RequestBody SaveTypeOfGradeResource resource) {
-        return convertToResource(typeOfGradeService.updateTypeOfGrade(id, convertToEntity(resource)));
+        return convertToResource(ITypeOfGradeService.updateTypeOfGrade(id, convertToEntity(resource)));
 
     }
 
     @DeleteMapping("/type_of_grade/{id}")
     public ResponseEntity<?> deleteTypeOfGrade(@PathVariable Long id) {
-        return typeOfGradeService.deleteTypeOfGrade(id);
+        return ITypeOfGradeService.deleteTypeOfGrade(id);
     }
 
 

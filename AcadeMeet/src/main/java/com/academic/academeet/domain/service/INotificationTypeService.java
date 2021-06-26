@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-public interface NotificationTypeService {
+public interface INotificationTypeService {
     Page<NotificationType> getAllNotificationTypes(Pageable pageable);
     NotificationType getById(Long id);
     NotificationType saveNotificationType(NotificationType notificationType);

@@ -14,9 +14,6 @@ public class Schedule {
 
     private Date end_date;
 
-    //@OneToMany(fetch = FetchType.LAZY, optional = false)
-    //private List<Lesson> lesson;
-
     public Long getId() {
         return id;
     }

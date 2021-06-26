@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-public interface TypeOfGradeService {
+public interface ITypeOfGradeService {
     Page<TypeOfGrade> getAllTypeOfGrades(Pageable pageable);
     TypeOfGrade getTypeOfGradeById(Long id);
     TypeOfGrade saveTypeOfGrade(TypeOfGrade typeOfGrade);

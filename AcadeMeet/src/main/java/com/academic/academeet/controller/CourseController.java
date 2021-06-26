@@ -1,13 +1,10 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Course;
-import com.academic.academeet.domain.model.User;
 import com.academic.academeet.domain.service.ICourseService;
-import com.academic.academeet.domain.service.StudentService;
+import com.academic.academeet.domain.service.IStudentService;
 import com.academic.academeet.resource.CourseResource;
 import com.academic.academeet.resource.SaveCourseResource;
-import com.academic.academeet.resource.SaveUserResource;
-import com.academic.academeet.resource.UserResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +21,7 @@ public class CourseController {
     private ICourseService courseService;
 
     @Autowired
-    private StudentService studentService;
+    private IStudentService IStudentService;
 
     @Autowired
     private ModelMapper mapper;

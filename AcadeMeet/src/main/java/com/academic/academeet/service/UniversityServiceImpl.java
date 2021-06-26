@@ -28,17 +28,10 @@ public class UniversityServiceImpl implements IUniversityService {
 
     @Override
     public University updateUniversity(Long universityId, University universityDetails) {
-        //1Forma si funciona no retorna excepcion
         University uni =universityRepository.findById(universityId)
                 .orElseThrow(()->new ResourceNotFoundException("University", "Id", universityId));
         uni.setName(universityDetails.getName());
         return universityRepository.save(uni);
-        //2Forma
-       /* return  universityRepository.findById(universityId)
-                .map(university -> {
-                    university.setName(universityDetails.getName());
-                    return universityRepository.save(university);})
-                .orElseThrow(()->new ResourceNotFoundException("No"));*/
     }
 
     @Override
