@@ -57,9 +57,7 @@ public class CourseController {
     public CourseResource assignStudentCourse(@PathVariable Long courseid, @PathVariable Long studentid){
         return convertToResource(courseService.assignStudentCourse(courseid,studentid));
     }
-
-    //TODO: Fix unassign student Course
-
+    
     @DeleteMapping("courses/{courseid}/students/{studentid}")
     public CourseResource unassignStudentCourse(@PathVariable Long courseid, @PathVariable Long studentid){
         return convertToResource(courseService.unassignStudentCourse(courseid,studentid));
