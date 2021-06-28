@@ -4,6 +4,9 @@ import com.academic.academeet.domain.model.LessonType;
 import com.academic.academeet.domain.service.LessonTypeService;
 import com.academic.academeet.resource.LessonTypeResource;
 import com.academic.academeet.resource.SaveLessonTypeResource;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +28,12 @@ public class LessonTypeController {
     @Autowired
     private ModelMapper mapper;
 
+    @Operation(summary = "Get Lesson Types", description = "Get All Lesson Types by Pages", tags = {"lesson-types"})
+    @ApiResponse(
+            responseCode = "200",
+            description = "All Lesson Types returned",
+            content = @Content(mediaType = "application/json")
+    )
     @GetMapping("/Lesson_types")
     public Page<LessonTypeResource> getLessonTypes(Pageable pageable) {
         List<LessonTypeResource> schools = lessonTypeService.getAllLessonTypes(pageable)
@@ -34,22 +43,46 @@ public class LessonTypeController {
         return new PageImpl<>(schools, pageable, schoolCount);
     }
 
+    @Operation(summary = "Get Lesson Type by id", description = "Get a Lesson Type given an id", tags = {"lesson-types"})
+    @ApiResponse(
+            responseCode = "200",
+            description = "Return a Lesson Type",
+            content = @Content(mediaType = "application/json")
+    )
     @GetMapping("/Lesson_types/{id}")
     public LessonTypeResource getLessonTypeById(@PathVariable Long id) {
         return convertToResource(lessonTypeService.getLessonTypeById(id));
     }
 
+    @Operation(summary = "Save a Lesson Type", description = "Save a Lesson Type", tags = {"lesson-types"})
+    @ApiResponse(
+            responseCode = "200",
+            description = "Return the Lesson Type saved",
+            content = @Content(mediaType = "application/json")
+    )
     @PostMapping("/Lesson_types")
     public LessonTypeResource createLessonType(@RequestBody SaveLessonTypeResource resource) {
         return convertToResource(lessonTypeService.saveLessonType(convertToEntity(resource)));
     }
 
 
+    @Operation(summary = "Update a Lesson Type", description = "Update a Lesson Type given an id", tags = {"lesson-types"})
+    @ApiResponse(
+            responseCode = "200",
+            description = "Return a Lesson Type updated",
+            content = @Content(mediaType = "application/json")
+    )
     @PutMapping("/Lesson_type/{id}")
     public LessonTypeResource updateLessonType(@PathVariable Long id, @Valid @RequestBody SaveLessonTypeResource resource) {
         return convertToResource(lessonTypeService.updateLessonType(id, convertToEntity(resource)));
     }
 
+    @Operation(summary = "Delete a Lesson Type", description = "remove a Lesson Type given an id", tags = {"lesson-types"})
+    @ApiResponse(
+            responseCode = "200",
+            description = "Return ResponseEntity",
+            content = @Content(mediaType = "application/json")
+    )
     @DeleteMapping("/lesson_type/{id}")
     public ResponseEntity<?> deleteLessonType(@PathVariable Long id) {
         return lessonTypeService.deleteLessonType(id);
