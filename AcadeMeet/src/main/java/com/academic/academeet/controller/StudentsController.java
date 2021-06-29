@@ -4,6 +4,7 @@ import com.academic.academeet.domain.model.Student;
 import com.academic.academeet.domain.service.StudentService;
 import com.academic.academeet.resource.SaveStudentResource;
 import com.academic.academeet.resource.StudentResource;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,9 @@ public class StudentsController {
     @Autowired
     private ModelMapper mapper;
 
+    @Operation(summary = "Get All Students"
+            , description = "Get All Students"
+            , tags = {"students"})
     @GetMapping("/students")
     public Page<StudentResource> getAllStudents(Pageable pageable){
         List<StudentResource> students = studentService.getAllStudents(pageable)
@@ -34,16 +38,25 @@ public class StudentsController {
         return new PageImpl<>(students, pageable, studentsCount);
     }
 
+    @Operation(summary = "Get Student"
+            , description = "Get Student By Id"
+            , tags = {"students"})
     @GetMapping("/students/{id}")
     public StudentResource getStudentById(@PathVariable Long id) {
         return convertToResource(studentService.getStudentById(id));
     }
 
+    @Operation(summary = "Add Student"
+            , description = "Add Student"
+            , tags = {"students"})
     @PostMapping("/students")
     public StudentResource createStudent(SaveStudentResource resource) {
         return convertToResource(studentService.saveStudent(convertToEntity(resource)));
     }
 
+    @Operation(summary = "Delete Student"
+            , description = "Delete Student By Id"
+            , tags = {"students"})
     @DeleteMapping("/students/{id}")
     public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
         return studentService.deleteStudent(id);

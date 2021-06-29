@@ -2,7 +2,9 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Notification;
 import com.academic.academeet.domain.repository.NotificationRepository;
+import com.academic.academeet.domain.repository.NotificationTypeRepository;
 import com.academic.academeet.domain.service.NotificationService;
+import com.academic.academeet.domain.service.NotificationTypeService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,9 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Autowired
+    private NotificationTypeRepository notificationTypeRepository;
+
     @Override
     public Page<Notification> getAllNotifications(Pageable pageable) {
         return notificationRepository.findAll(pageable);
@@ -28,8 +33,12 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Notification saveNotification(Notification notification) {
-        return notificationRepository.save(notification);
+    public Notification saveNotification(Long notificationTypeId, Notification notification) {
+        return notificationTypeRepository.findById(notificationTypeId).map(notiType -> {
+            notification.setNotificationType(notiType);
+            return notificationRepository.save(notification);
+        }).orElseThrow(() -> new ResourceNotFoundException("Notification Type", "Id", notificationTypeId));
+
     }
 
     @Override

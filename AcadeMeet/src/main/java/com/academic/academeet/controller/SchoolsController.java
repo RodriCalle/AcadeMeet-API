@@ -4,6 +4,7 @@ import com.academic.academeet.domain.model.School;
 import com.academic.academeet.domain.service.SchoolService;
 import com.academic.academeet.resource.SaveSchoolResource;
 import com.academic.academeet.resource.SchoolResource;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,9 @@ public class SchoolsController {
     @Autowired
     private ModelMapper mapper;
 
+    @Operation(summary = "Get All Schools"
+            , description = "Get All Schools"
+            , tags = {"schools"})
     @GetMapping("/schools")
     public Page<SchoolResource> getAllSchools(Pageable pageable) {
         List<SchoolResource> schools = schoolService.getAllSchools(pageable)
@@ -35,21 +39,33 @@ public class SchoolsController {
         return new PageImpl<>(schools, pageable, schoolCount);
     }
 
+    @Operation(summary = "Get School"
+            , description = "Get School By Id"
+            , tags = {"schools"})
     @GetMapping("/schools/{id}")
     public SchoolResource getSchoolById(@PathVariable Long id) {
         return convertToResource(schoolService.getSchoolById(id));
     }
 
+    @Operation(summary = "Add School"
+            , description = "Add School"
+            , tags = {"schools"})
     @PostMapping("/schools")
     public SchoolResource createSchool(@RequestBody SaveSchoolResource resource) {
         return convertToResource(schoolService.createSchool(convertToEntity(resource)));
     }
 
+    @Operation(summary = "Update School"
+            , description = "Get School By Id"
+            , tags = {"schools"})
     @PutMapping("/school/{id}")
     public SchoolResource updateSchool(@PathVariable Long id, @Valid @RequestBody SaveSchoolResource resource) {
         return convertToResource(schoolService.updateSchool(id, convertToEntity(resource)));
     }
 
+    @Operation(summary = "Delete School"
+            , description = "Delete School By Id"
+            , tags = {"schools"})
     @DeleteMapping("/school/{id}")
     public ResponseEntity<?> deleteSchool(@PathVariable Long id) {
         return schoolService.deleteSchool(id);
