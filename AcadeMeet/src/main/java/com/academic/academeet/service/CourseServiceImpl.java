@@ -38,7 +38,6 @@ public class CourseServiceImpl implements ICourseService {
         return courseRepository.findById(courseid).map(
                 Course -> {
                     Course.setName(course.getName());
-                    Course.setAverage(course.getAverage());
                     return courseRepository.save(Course);
                 }
         ).orElseThrow(() -> new ResourceNotFoundException("Course", "Id", course));

@@ -19,7 +19,6 @@ public class Carrer {
     @Size(max = 150)
     private String name;
 
-    //Relacion muchos carreras a una universidad el FK university_id se crea en carrers
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "university_id", nullable = false)
     @JsonIgnore

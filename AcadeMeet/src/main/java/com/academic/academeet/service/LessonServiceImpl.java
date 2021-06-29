@@ -31,7 +31,7 @@ public class LessonServiceImpl implements ILessonService {
             return tutorRepository.findById(tutorId).map(tutor -> {
                 lesson.setTutor(tutor);
                 return lessonTypeRepository.findById(lessonTypeId).map(lessontype -> {
-                    lesson.setLesson_type(lessontype);
+                    lesson.setLessonType(lessontype);
                     return scheduleRepository.findById(scheduleId).map(schedule -> {
                         lesson.setSchedule(schedule);
                         return lessonRepository.save(lesson);

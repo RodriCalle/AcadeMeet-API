@@ -4,9 +4,6 @@ public class CourseResource {
     private Long id;
 
     private String name;
-
-    private float average;
-
     public Long getId() {
         return id;
     }
@@ -21,13 +18,5 @@ public class CourseResource {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public float getAverage() {
-        return average;
-    }
-
-    public void setAverage(float average) {
-        this.average = average;
     }
 }
