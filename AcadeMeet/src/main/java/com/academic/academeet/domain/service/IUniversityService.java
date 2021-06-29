@@ -6,10 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface IUniversityService {
-    Page<University> getAll(Pageable pageable);
-
     University createUniversity(University university);
     University updateUniversity(Long universityId, University universityDetails);
     University getUniversityById(Long universityId);
     ResponseEntity<?> deleteUniversity(Long universityId);
+    Page<University> getAll(Pageable pageable);
 }

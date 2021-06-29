@@ -80,7 +80,6 @@ public class User {
     }
 
     public User untagWith(Plan plan) {
-        if(!this.isTaggedWith(plan))
             this.getPlans().remove(plan);
         return this;
     }

@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface ILessonTypeService {
-    Page<LessonType> getAllLessonTypes(Pageable pageable);
+    LessonType createLessonType(LessonType lessonType);
+    LessonType updateLessonType(Long lessonTypeId, LessonType lessonTypeDetails);
     LessonType getLessonTypeById(Long id);
-    LessonType saveLessonType(LessonType lessonType);
-    LessonType updateLessonType(Long lessonTypeId, LessonType lessonType);
     ResponseEntity<?> deleteLessonType(Long id);
+    Page<LessonType> getAll(Pageable pageable);
 }

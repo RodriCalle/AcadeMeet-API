@@ -23,7 +23,6 @@ public class Student extends User {
         return this;
     }
 
-    //Comenta estas relaciones y funciona pero debes implementarlo en el controller pidiento pathVariable
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Level level;
 

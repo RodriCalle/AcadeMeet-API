@@ -1,7 +1,7 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.NotificationType;
-import com.academic.academeet.domain.repository.NotificationTypeRepository;
+import com.academic.academeet.domain.repository.INotificationTypeRepository;
 import com.academic.academeet.domain.service.INotificationTypeService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,37 +14,37 @@ import org.springframework.stereotype.Service;
 public class NotificationTypeServiceImpl implements INotificationTypeService {
 
     @Autowired
-    private NotificationTypeRepository notificationTypeRepository;
+    private INotificationTypeRepository notificationTypeRepository;
 
     @Override
-    public Page<NotificationType> getAllNotificationTypes(Pageable pageable) {
+    public Page<NotificationType> getAll(Pageable pageable) {
         return notificationTypeRepository.findAll(pageable);
     }
 
     @Override
-    public NotificationType getById(Long id) {
-        return notificationTypeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Notification Type", "Id", id));
+    public NotificationType getById(Long notificationTypeId) {
+        return notificationTypeRepository.findById(notificationTypeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Notification Type", "Id", notificationTypeId));
     }
 
     @Override
-    public NotificationType saveNotificationType(NotificationType notificationType) {
+    public NotificationType createNotificationType(NotificationType notificationType) {
         return notificationTypeRepository.save(notificationType);
     }
 
     @Override
-    public NotificationType updateNotificationType(Long id, NotificationType notificationType) {
-       NotificationType resource = notificationTypeRepository.findById(id)
-               .orElseThrow(() -> new ResourceNotFoundException("Notification Type", "Id", id));
+    public NotificationType updateNotificationType(Long notificationTypeId, NotificationType notificationTypeDetails) {
+       NotificationType resource = notificationTypeRepository.findById(notificationTypeId)
+               .orElseThrow(() -> new ResourceNotFoundException("Notification Type", "Id", notificationTypeId));
 
-       resource.setDescription(notificationType.getDescription());
+       resource.setDescription(notificationTypeDetails.getDescription());
        return notificationTypeRepository.save(resource);
     }
 
     @Override
-    public ResponseEntity<?> deleteNotificationType(Long id) {
-        NotificationType resource = notificationTypeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Notification Type", "Id", id));
+    public ResponseEntity<?> deleteNotificationType(Long notificationTypeId) {
+        NotificationType resource = notificationTypeRepository.findById(notificationTypeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Notification Type", "Id", notificationTypeId));
 
         notificationTypeRepository.delete(resource);
         return ResponseEntity.ok().build();

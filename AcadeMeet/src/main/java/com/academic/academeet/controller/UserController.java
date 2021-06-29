@@ -17,15 +17,22 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class UserController {
     @Autowired
-    private IUserService IUserService;
+    private IUserService userService;
     @Autowired
-    private IPlanService IPlanService;
+    private IPlanService planService;
     @Autowired
     private ModelMapper mapper;
 
+    private User convertToEntity(SaveUserResource resource){
+        return mapper.map(resource, User.class);
+    }
+    private UserResource convertToResource(User entity){
+        return mapper.map(entity, UserResource.class);
+    }
+
     @GetMapping("/users")
     public List<UserResource> getAllUsers(){
-        return IUserService.getAllUsers()
+        return userService.getAll()
                 .stream()
                 .map(
                         user -> mapper.map(user,UserResource.class)
@@ -35,36 +42,17 @@ public class UserController {
     @PostMapping("/users")
     public UserResource saveUser(@RequestBody SaveUserResource resource){
         User user = convertToEntity(resource);
-        return convertToResource(IUserService.createUser(user));
+        return convertToResource(userService.createUser(user));
     }
 
     @PutMapping("/users/{id}")
     public UserResource updateUser(@PathVariable Long id, @RequestBody SaveUserResource resource){
         User user = convertToEntity(resource);
-        return convertToResource(IUserService.updateUser(id,user));
+        return convertToResource(userService.updateUser(id,user));
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        return IUserService.deleteUser(id);
-    }
-
-    private User convertToEntity(SaveUserResource resource){
-        return mapper.map(resource, User.class);
-    }
-
-    private UserResource convertToResource(User entity){
-        return mapper.map(entity, UserResource.class);
-    }
-
-    @PostMapping("/users/{userid}/plans/{planid}")
-    public UserResource assignUserPlan(@PathVariable Long userid, @PathVariable Long planid){
-        return convertToResource(IUserService.assignUserPlan(userid,planid));
-    }
-
-    @DeleteMapping("/users/{userid}/plans/{planid}")
-    public UserResource unassignUserPlan(@PathVariable Long userid, @PathVariable Long planid){
-        return convertToResource(IUserService.unassignUserPlan(userid,planid));
-
+        return userService.deleteUser(id);
     }
 }

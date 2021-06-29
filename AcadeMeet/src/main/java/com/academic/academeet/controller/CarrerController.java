@@ -8,9 +8,6 @@ import com.academic.academeet.domain.service.IUniversityService;
 import com.academic.academeet.resource.CarrerResource;
 import com.academic.academeet.resource.SaveCarrerResource;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -72,9 +69,9 @@ public class CarrerController {
     @Operation(summary = "Delete Carrer"
             , description = "Delete Carrer By Id"
             , tags = {"carrers"})
-    @DeleteMapping("/universities/{universityId}/carrers/{carrerId}")
-    public ResponseEntity<?> deleteCarrer(@PathVariable Long universityId,@PathVariable Long carrerId){
-        carrerService.deleteCarrer(universityId,carrerId);
+    @DeleteMapping("/carrers/{carrerId}")
+    public ResponseEntity<?> deleteCarrer(@PathVariable Long carrerId){
+        carrerService.deleteCarrer(carrerId);
         return ResponseEntity.ok().build();
     }
 
@@ -88,21 +85,5 @@ public class CarrerController {
                 .stream().map(this::convertToResource)
                 .collect(Collectors.toList());
         return new PageImpl<>(resources,pageable,resources.size());
-    }
-
-    @Operation(summary = "Assign Carrer To Tutor"
-            , description = "Assign Carrer To Tutor with Id"
-            , tags = {"carrers"})
-    @PostMapping("/carrers/{carrerId}/tutors/{tutorId}")
-    public CarrerResource assignCarrerTutor(@PathVariable Long carrerId, @PathVariable Long tutorId) {
-        return convertToResource(carrerService.assignCarrerTutor(carrerId, tutorId));
-    }
-
-    @Operation(summary = "Unassign Carrer To Tutor"
-            , description = "Unassign Carrer To Tutor with Id"
-            , tags = {"carrers"})
-    @DeleteMapping("/carrers/{carrerId}/tutors/{tutorId}")
-    public CarrerResource unassignCarrerTutor(@PathVariable Long carrerId, @PathVariable Long tutorId) {
-        return convertToResource(carrerService.unassignCarrerTutor(carrerId, tutorId));
     }
 }

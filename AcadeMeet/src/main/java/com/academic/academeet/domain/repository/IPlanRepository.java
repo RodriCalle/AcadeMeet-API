@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PlanRepository extends JpaRepository<Plan,Long> {
-    //List<Plan> findAllByUserId(Long userid);
+public interface IPlanRepository extends JpaRepository<Plan,Long> {
 }

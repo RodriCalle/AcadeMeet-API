@@ -10,8 +10,7 @@ public interface ITutorService {
     Tutor updateTutor(Long tutorId, Tutor tutorDetails);
     Tutor getTutorById(Long tutorId);
     ResponseEntity<?> deleteTutor(Long tutorId);
-
     Page<Tutor> getAll(Pageable pageable);
-    Page<Tutor> getAllByCarrerId(Long carrerId, Pageable pageable);
 
+    Page<Tutor> getAllByCarrerId(Long carrerId, Pageable pageable);
 }

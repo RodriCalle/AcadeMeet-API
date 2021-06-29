@@ -10,6 +10,5 @@ public interface ILessonService {
     Lesson updateLesson(Long lessonId, Lesson lessonDetails);
     Lesson getLessonById(Long lessonId);
     ResponseEntity<?> deleteLesson (Long lessonId);
-
     Page<Lesson> getAll(Pageable pageable);
 }

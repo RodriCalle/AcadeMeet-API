@@ -1,9 +1,8 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Course;
-import com.academic.academeet.domain.model.Student;
 import com.academic.academeet.domain.repository.ICourseRepository;
-import com.academic.academeet.domain.repository.StudentRepository;
+import com.academic.academeet.domain.repository.IStudentRepository;
 import com.academic.academeet.domain.service.ICourseService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,8 @@ public class CourseServiceImpl implements ICourseService {
     @Autowired
     private ICourseRepository courseRepository;
 
-    @Autowired
-    private StudentRepository studentRepository;
-
     @Override
-    public List<Course> getAllCourses() {
+    public List<Course> getAll() {
         return courseRepository.findAll();
     }
 
@@ -60,9 +56,9 @@ public class CourseServiceImpl implements ICourseService {
                 ));
     }
 
-    @Override
+    /*@Override
     public Course assignStudentCourse(Long courseid, Long studentid) {
-        Student student = studentRepository.findById(studentid)
+        Student student = IStudentRepository.findById(studentid)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Student", "Id", studentid));
         return courseRepository.findById(courseid).map(
@@ -73,12 +69,12 @@ public class CourseServiceImpl implements ICourseService {
 
     @Override
     public Course unassignStudentCourse(Long courseid, Long studentid) {
-        Student student = studentRepository.findById(studentid)
+        Student student = IStudentRepository.findById(studentid)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Student", "Id", studentid));
         return courseRepository.findById(courseid).map(
                 course -> courseRepository.save(course.untagWith(student)))
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Course", "Id", courseid));
-    }
+    }*/
 }

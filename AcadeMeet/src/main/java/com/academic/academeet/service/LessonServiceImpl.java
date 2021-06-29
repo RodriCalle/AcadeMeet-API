@@ -19,9 +19,9 @@ public class LessonServiceImpl implements ILessonService {
     @Autowired
     private ITutorRepository tutorRepository;
     @Autowired
-    private LessonTypeRepository lessonTypeRepository;
+    private ILessonTypeRepository lessonTypeRepository;
     @Autowired
-    private ScheduleRepository scheduleRepository;
+    private IScheduleRepository scheduleRepository;
 
 
     @Override

@@ -76,7 +76,6 @@ public class Carrer {
     }
 
     public Carrer untagWith(Tutor tutor) {
-        if(!this.isTaggedWith(tutor))
             this.getTutors().remove(tutor);
         return this;
     }

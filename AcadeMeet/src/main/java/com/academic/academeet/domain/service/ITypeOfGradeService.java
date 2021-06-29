@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface ITypeOfGradeService {
-    Page<TypeOfGrade> getAllTypeOfGrades(Pageable pageable);
-    TypeOfGrade getTypeOfGradeById(Long id);
-    TypeOfGrade saveTypeOfGrade(TypeOfGrade typeOfGrade);
-    TypeOfGrade updateTypeOfGrade(Long typeOfGradeId, TypeOfGrade typeOfGrade);
-    ResponseEntity<?> deleteTypeOfGrade(Long id);
+    TypeOfGrade createTypeOfGrade(TypeOfGrade typeOfGrade);
+    TypeOfGrade updateTypeOfGrade(Long typeOfGradeId, TypeOfGrade typeOfGradeDetails);
+    TypeOfGrade getTypeOfGradeById(Long typeOfGradeId);
+    ResponseEntity<?> deleteTypeOfGrade(Long typeOfGradeId);
+    Page<TypeOfGrade> getAll(Pageable pageable);
 }

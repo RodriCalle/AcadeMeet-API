@@ -6,5 +6,4 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ICarrerRepository extends JpaRepository<Carrer,Long> {
-    Page<Carrer> findAllByUniversityId(Long universityId, Pageable pageable);
 }

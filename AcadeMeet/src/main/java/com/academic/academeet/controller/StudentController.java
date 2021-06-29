@@ -20,34 +20,10 @@ import java.util.stream.Collectors;
 public class StudentController {
 
     @Autowired
-    private IStudentService IStudentService;
+    private IStudentService studentService;
 
     @Autowired
     private ModelMapper mapper;
-
-    @GetMapping("/students")
-    public Page<StudentResource> getAllStudents(Pageable pageable){
-        List<StudentResource> students = IStudentService.getAllStudents(pageable)
-                .getContent().stream().map(this::convertToResource)
-                .collect(Collectors.toList());
-        int studentsCount = students.size();
-        return new PageImpl<>(students, pageable, studentsCount);
-    }
-
-    @GetMapping("/students/{id}")
-    public StudentResource getStudentById(@PathVariable Long id) {
-        return convertToResource(IStudentService.getStudentById(id));
-    }
-
-    @PostMapping("/students")
-    public StudentResource createStudent(@RequestBody SaveStudentResource resource) {
-        return convertToResource(IStudentService.createStudent(convertToEntity(resource)));
-    }
-
-    @DeleteMapping("/students/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
-        return IStudentService.deleteStudent(id);
-    }
 
     private Student convertToEntity(SaveStudentResource resource) {
         return mapper.map(resource, Student.class);
@@ -56,4 +32,27 @@ public class StudentController {
         return mapper.map(entity, StudentResource.class);
     }
 
+    @GetMapping("/students")
+    public Page<StudentResource> getAllStudents(Pageable pageable){
+        List<StudentResource> students = studentService.getAll(pageable)
+                .getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        int studentsCount = students.size();
+        return new PageImpl<>(students, pageable, studentsCount);
+    }
+
+    @GetMapping("/students/{id}")
+    public StudentResource getStudentById(@PathVariable Long id) {
+        return convertToResource(studentService.getStudentById(id));
+    }
+
+    @PostMapping("/students")
+    public StudentResource createStudent(@RequestBody SaveStudentResource resource) {
+        return convertToResource(studentService.createStudent(convertToEntity(resource)));
+    }
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
+        return studentService.deleteStudent(id);
+    }
 }

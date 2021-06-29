@@ -26,9 +26,9 @@ public class LessonController {
     @Autowired
     private ITutorService tutorService;
     @Autowired
-    private ILessonTypeService ILessonTypeService;
+    private ILessonTypeService lessonTypeService;
     @Autowired
-    private IScheduleService IScheduleService;
+    private IScheduleService scheduleService;
 
     private Lesson convertToEntity(SaveLessonResource resource) {
         return mapper.map(resource, Lesson.class);

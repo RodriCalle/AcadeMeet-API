@@ -1,7 +1,8 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Plan;
-import com.academic.academeet.domain.repository.PlanRepository;
+import com.academic.academeet.domain.model.University;
+import com.academic.academeet.domain.repository.IPlanRepository;
 import com.academic.academeet.domain.service.IPlanService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,10 @@ import java.util.List;
 public class PlanServiceImpl implements IPlanService {
 
     @Autowired
-    private PlanRepository planRepository;
+    private IPlanRepository planRepository;
 
     @Override
-    public List<Plan> getAllPlansByUserId(Long userid) {
-        return null;//planRepository.findAllByUserId(userid);
-    }
-
-    @Override
-    public ArrayList<Plan> getAllPlans() {
+    public ArrayList<Plan> getAll() {
         return (ArrayList<Plan>) planRepository.findAll();
     }
 
@@ -33,26 +29,29 @@ public class PlanServiceImpl implements IPlanService {
     }
 
     @Override
-    public Plan updatePlan(Long planid, Plan plan) {
-        return planRepository.findById(planid).map(
-                Plan -> {
-                    Plan.setName(plan.getName());
-                    Plan.setPrice(plan.getPrice());
-                    return planRepository.save(Plan);
-                }
-        ).orElseThrow(() -> new ResourceNotFoundException("Plan", "Id", plan));
+    public Plan updatePlan(Long planId, Plan planDetails) {
+        Plan plan = planRepository.findById(planId)
+                .orElseThrow(()->new ResourceNotFoundException("Plan", "Id", planId));
+        plan.setName(planDetails.getName());
+        return planRepository.save(plan);
     }
 
     @Override
-    public ResponseEntity<?> deletePlan(Long planid) {
+    public Plan getPlanById(Long planId) {
+        return planRepository.findById(planId).
+                orElseThrow(() -> new ResourceNotFoundException("Plan", "Id", planId));
+    }
 
-        return planRepository.findById(planid)
+    @Override
+    public ResponseEntity<?> deletePlan(Long planId) {
+
+        return planRepository.findById(planId)
                 .map(plan -> {
                     planRepository.delete(plan);
                     return ResponseEntity.ok().build();
                 })
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Plan","Id", planid
+                        "Plan","Id", planId
                 ));
     }
 }

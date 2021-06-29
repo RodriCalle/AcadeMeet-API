@@ -21,40 +21,10 @@ import java.util.stream.Collectors;
 public class LevelController {
 
     @Autowired
-    private ILevelService ILevelService;
+    private ILevelService levelService;
 
     @Autowired
     private ModelMapper mapper;
-
-
-    @GetMapping("/levels")
-    public Page<LevelResource> getAllLevels(Pageable pageable) {
-        List<LevelResource> levels = ILevelService.getAllLevels(pageable)
-                .getContent().stream().map(this::convertToResource)
-                .collect(Collectors.toList());
-        int levelCount = levels.size();
-        return new PageImpl<>(levels, pageable, levelCount);
-    }
-
-    @GetMapping("/levels/{id}")
-    public LevelResource getLevelById(@PathVariable Long id) {
-        return convertToResource(ILevelService.getLevelById(id));
-    }
-
-    @PostMapping("/levels")
-    public LevelResource createLevel(@Valid @RequestBody SaveLevelResource resource) {
-        return convertToResource(ILevelService.createLevel(convertToEntity(resource)));
-    }
-
-    @PutMapping("/levels/{id}/students/{studentId}")
-    public LevelResource assignLevelToStudent(@PathVariable Long id, @PathVariable Long studentId) {
-        return convertToResource(ILevelService.assignLevelToStudent(id, studentId));
-    }
-
-    @DeleteMapping("/levels/{id}")
-    public ResponseEntity<?> deleteLevel(@PathVariable Long id) {
-        return ILevelService.deleteLevel(id);
-    }
 
     private Level convertToEntity(SaveLevelResource resource) {
         return mapper.map(resource, Level.class);
@@ -62,4 +32,39 @@ public class LevelController {
     private LevelResource convertToResource(Level entity) {
         return mapper.map(entity, LevelResource.class);
     }
+
+    @PostMapping("/levels")
+    public LevelResource createLevel(@Valid @RequestBody SaveLevelResource resource) {
+        return convertToResource(levelService.createLevel(convertToEntity(resource)));
+    }
+
+    @PutMapping("/levels/{levelId}")
+    public LevelResource updateLevel(@PathVariable Long levelId, @Valid @RequestBody SaveLevelResource resource) {
+        return convertToResource(levelService.updateLevel(levelId, convertToEntity(resource)));
+    }
+
+    @GetMapping("/levels/{levelId}")
+    public LevelResource getLevelById(@PathVariable Long levelId) {
+        return convertToResource(levelService.getLevelById(levelId));
+    }
+
+    @DeleteMapping("/levels/{levelId}")
+    public ResponseEntity<?> deleteLevel(@PathVariable Long levelId) {
+        return levelService.deleteLevel(levelId);
+    }
+
+    @GetMapping("/levels")
+    public Page<LevelResource> getAllLevels(Pageable pageable) {
+        List<LevelResource> levels = levelService.getAll(pageable)
+                .getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        int levelCount = levels.size();
+        return new PageImpl<>(levels, pageable, levelCount);
+    }
+
+    /*
+    @PostMapping("/levels/{levelId}/students/{studentId}")
+    public LevelResource assignLevelToStudent(@PathVariable Long levelId, @PathVariable Long studentId) {
+        return convertToResource(levelService.assignLevelToStudent(levelId, studentId));
+    }*/
 }

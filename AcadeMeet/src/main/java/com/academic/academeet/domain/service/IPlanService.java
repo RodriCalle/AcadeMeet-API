@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface IPlanService {
-    List<Plan> getAllPlansByUserId(Long id);
-    List<Plan> getAllPlans();
     Plan createPlan(Plan plan);
-    Plan updatePlan(Long planid,Plan plan);
-    ResponseEntity<?> deletePlan(Long planid);
+    Plan updatePlan(Long planId, Plan planDetails);
+    Plan getPlanById(Long planId);
+    ResponseEntity<?> deletePlan(Long planId);
+    List<Plan> getAll();
 }

@@ -1,7 +1,7 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Student;
-import com.academic.academeet.domain.repository.StudentRepository;
+import com.academic.academeet.domain.repository.IStudentRepository;
 import com.academic.academeet.domain.service.IStudentService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class StudentServiceImpl implements IStudentService {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private IStudentRepository studentRepository;
 
     @Override
     public Student createStudent(Student student) {
@@ -35,22 +35,22 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public Student getStudentById(Long id) {
-        return studentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student", "Id", id));
+    public Student getStudentById(Long studentId) {
+        return studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", "Id", studentId));
     }
 
     @Override
-    public ResponseEntity<?> deleteStudent(Long id) {
-        return studentRepository.findById(id).
+    public ResponseEntity<?> deleteStudent(Long studentId) {
+        return studentRepository.findById(studentId).
                 map(student -> {
                     studentRepository.delete(student);
                     return ResponseEntity.ok().build(); })
-                .orElseThrow(() -> new ResourceNotFoundException("Student", "Id", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Student", "Id", studentId));
     }
 
     @Override
-    public Page<Student> getAllStudents(Pageable pageable) {
+    public Page<Student> getAll(Pageable pageable) {
         return studentRepository.findAll(pageable);
     }
 }

@@ -15,7 +15,7 @@ public class Course {
 
     private float average;
 
-    public List<Student> getStudents() {
+    /*public List<Student> getStudents() {
         return students;
     }
 
@@ -23,7 +23,7 @@ public class Course {
     @JoinTable(name = "HistoryGrades",
             joinColumns = {@JoinColumn(name = "course_id")},
             inverseJoinColumns = {@JoinColumn(name = "student_id")})
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();*/
 
     public Long getId() {
         return id;
@@ -49,7 +49,7 @@ public class Course {
         this.average = average;
     }
 
-    public boolean isTaggedWith(Student student) {
+    /*public boolean isTaggedWith(Student student) {
         return this.getStudents().contains(student);
     }
 
@@ -63,5 +63,5 @@ public class Course {
         if (!this.isTaggedWith(student))
             this.getStudents().remove(student);
         return this;
-    }
+    }*/
 }

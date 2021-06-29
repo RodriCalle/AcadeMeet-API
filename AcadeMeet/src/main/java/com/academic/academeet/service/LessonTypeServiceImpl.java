@@ -1,7 +1,7 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.LessonType;
-import com.academic.academeet.domain.repository.LessonTypeRepository;
+import com.academic.academeet.domain.repository.ILessonTypeRepository;
 import com.academic.academeet.domain.service.ILessonTypeService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class LessonTypeServiceImpl implements ILessonTypeService {
     @Autowired
-    private LessonTypeRepository lessonTypeRepository;
+    private ILessonTypeRepository lessonTypeRepository;
 
     @Override
-    public Page<LessonType> getAllLessonTypes(Pageable pageable) {
+    public Page<LessonType> getAll(Pageable pageable) {
         return lessonTypeRepository.findAll(pageable);
     }
 
@@ -27,17 +27,17 @@ public class LessonTypeServiceImpl implements ILessonTypeService {
     }
 
     @Override
-    public LessonType saveLessonType(LessonType lessonType) {
+    public LessonType createLessonType(LessonType lessonType) {
         return lessonTypeRepository.save(lessonType);
     }
 
     @Override
-    public LessonType updateLessonType(Long lessonTypeId, LessonType lessonType) {
+    public LessonType updateLessonType(Long lessonTypeId, LessonType lessonTypeDetails) {
         return lessonTypeRepository.findById(lessonTypeId).map(
                 LessonType1 ->{
-                    LessonType1.setName(lessonType.getName());
-                    LessonType1.setDescription(lessonType.getDescription());
-                    LessonType1.setStudents_quantity(lessonType.getStudents_quantity());
+                    LessonType1.setName(lessonTypeDetails.getName());
+                    LessonType1.setDescription(lessonTypeDetails.getDescription());
+                    LessonType1.setStudents_quantity(lessonTypeDetails.getStudents_quantity());
                     return lessonTypeRepository.save(LessonType1);
                 }
         ).orElseThrow(() -> new ResourceNotFoundException("LessonType", "Id", lessonTypeId));

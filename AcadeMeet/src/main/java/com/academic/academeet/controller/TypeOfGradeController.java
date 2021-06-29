@@ -20,49 +20,44 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class TypeOfGradeController {
     @Autowired
-    private ITypeOfGradeService ITypeOfGradeService;
+    private ITypeOfGradeService typeOfGradeService;
 
     @Autowired
     private ModelMapper mapper;
-
-    @GetMapping("/type_of_grades")
-    public Page<TypeOfGradeResource> getTypeOfGrades(Pageable pageable) {
-        List<TypeOfGradeResource> schools = ITypeOfGradeService.getAllTypeOfGrades(pageable)
-                .getContent().stream().map(this::convertToResource).
-                        collect(Collectors.toList());
-        int schoolCount = schools.size();
-        return new PageImpl<>(schools, pageable, schoolCount);
-    }
-
-    @GetMapping("/type_of_grades/{id}")
-    public TypeOfGradeResource getTypeOfGradeById(@PathVariable Long id) {
-        return convertToResource(ITypeOfGradeService.getTypeOfGradeById(id));
-
-    }
-
-    @PostMapping("/type_of_grades")
-    public TypeOfGradeResource createTypeOfGrade(@RequestBody SaveTypeOfGradeResource resource) {
-        return convertToResource(ITypeOfGradeService.saveTypeOfGrade(convertToEntity(resource)));
-
-    }
-
-
-    @PutMapping("/type_of_grade/{id}")
-    public TypeOfGradeResource updateTypeOfGrade(@PathVariable Long id, @Valid @RequestBody SaveTypeOfGradeResource resource) {
-        return convertToResource(ITypeOfGradeService.updateTypeOfGrade(id, convertToEntity(resource)));
-
-    }
-
-    @DeleteMapping("/type_of_grade/{id}")
-    public ResponseEntity<?> deleteTypeOfGrade(@PathVariable Long id) {
-        return ITypeOfGradeService.deleteTypeOfGrade(id);
-    }
-
 
     private TypeOfGrade convertToEntity(SaveTypeOfGradeResource resource) {
         return mapper.map(resource, TypeOfGrade.class);
     }
     private TypeOfGradeResource convertToResource(TypeOfGrade entity) {
         return mapper.map(entity, TypeOfGradeResource.class);
+    }
+
+    @GetMapping("/types_of_grade")
+    public Page<TypeOfGradeResource> getTypesOfGrade(Pageable pageable) {
+        List<TypeOfGradeResource> schools = typeOfGradeService.getAll(pageable)
+                .getContent().stream().map(this::convertToResource).
+                        collect(Collectors.toList());
+        int schoolCount = schools.size();
+        return new PageImpl<>(schools, pageable, schoolCount);
+    }
+
+    @GetMapping("/types_of_grade/{typeOfGradeId}")
+    public TypeOfGradeResource getTypeOfGradeById(@PathVariable Long typeOfGradeId) {
+        return convertToResource(typeOfGradeService.getTypeOfGradeById(typeOfGradeId));
+    }
+
+    @PostMapping("/types_of_grade")
+    public TypeOfGradeResource createTypeOfGrade(@RequestBody SaveTypeOfGradeResource resource) {
+        return convertToResource(typeOfGradeService.createTypeOfGrade(convertToEntity(resource)));
+    }
+
+    @PutMapping("/types_of_grade/{typeOfGradeId}")
+    public TypeOfGradeResource updateTypeOfGrade(@PathVariable Long typeOfGradeId, @Valid @RequestBody SaveTypeOfGradeResource resource) {
+        return convertToResource(typeOfGradeService.updateTypeOfGrade(typeOfGradeId, convertToEntity(resource)));
+    }
+
+    @DeleteMapping("/types_of_grade/{typeOfGradeId}")
+    public ResponseEntity<?> deleteTypeOfGrade(@PathVariable Long typeOfGradeId) {
+        return typeOfGradeService.deleteTypeOfGrade(typeOfGradeId);
     }
 }

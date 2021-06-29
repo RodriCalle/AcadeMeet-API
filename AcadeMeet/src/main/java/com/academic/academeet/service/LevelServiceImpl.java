@@ -1,8 +1,9 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Level;
-import com.academic.academeet.domain.repository.LevelRepository;
-import com.academic.academeet.domain.repository.StudentRepository;
+import com.academic.academeet.domain.model.Plan;
+import com.academic.academeet.domain.repository.ILevelRepository;
+import com.academic.academeet.domain.repository.IStudentRepository;
 import com.academic.academeet.domain.service.ILevelService;
 import com.academic.academeet.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,14 @@ import org.springframework.stereotype.Service;
 public class LevelServiceImpl implements ILevelService {
 
     @Autowired
-    private LevelRepository levelRepository;
+    private ILevelRepository levelRepository;
 
     @Autowired
-    private StudentRepository studentRepository;
+    private IStudentRepository studentRepository;
 
     @Override
-    public Page<Level> getAllLevels(Pageable pageable) {
+    public Page<Level> getAll(Pageable pageable) {
         return levelRepository.findAll(pageable);
-    }
-
-    @Override
-    public Level getLevelById(Long id) {
-        return  levelRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", id));
     }
 
     @Override
@@ -37,32 +32,35 @@ public class LevelServiceImpl implements ILevelService {
     }
 
     @Override
-    public Level updateLevel(Long id, Level level) {
-        return levelRepository.findById(id)
-                .map(Level -> {
-                    Level.setName(level.getName());
-                    return levelRepository.save(level);
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", id));
+    public Level updateLevel(Long levelId, Level levelDetails) {
+        Level level = levelRepository.findById(levelId)
+                .orElseThrow(()->new ResourceNotFoundException("Level", "Id", levelId));
+        level.setName(levelDetails.getName());
+        return levelRepository.save(level);
     }
 
     @Override
-    public ResponseEntity<?> deleteLevel(Long id) {
-        return levelRepository.findById(id)
+    public Level getLevelById(Long levelId) {
+        return  levelRepository.findById(levelId)
+                .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", levelId));
+    }
+
+    @Override
+    public ResponseEntity<?> deleteLevel(Long levelId) {
+        return levelRepository.findById(levelId)
                 .map(Level -> {
                     levelRepository.delete(Level);
                     return ResponseEntity.ok().build();
                 })
-                .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", levelId));
     }
 
     @Override
-    public Level assignLevelToStudent(Long id, Long studentId) {
+    public Level assignLevelToStudent(Long levelId, Long studentId) {
         return studentRepository.findById(studentId)
                 .map(student -> {
-                    Level level = levelRepository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", id));
-                    //student.setLevel(level);
+                    Level level = levelRepository.findById(levelId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", levelId));
                     studentRepository.save(student);
                     return level;
                 })

@@ -7,9 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface IScheduleService {
-    Page<Schedule> getAllSchedules(Pageable pageable);
-    Schedule getScheduleById(Long id);
-    Schedule saveSchedule(Schedule schedule);
-    Schedule updateSchedule(Long scheduleId, Schedule schedule);
-    ResponseEntity<?> deleteSchedule(Long id);
+    Schedule createSchedule(Schedule schedule);
+    Schedule updateSchedule(Long scheduleId, Schedule scheduleDetails);
+    Schedule getScheduleById(Long scheduleId);
+    ResponseEntity<?> deleteSchedule(Long scheduleId);
+    Page<Schedule> getAll(Pageable pageable);
+
 }

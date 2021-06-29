@@ -6,12 +6,12 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface IUserService {
-    List<User> getAllUsersByPlanId(Long planid);
-    List<User> getAllUsers();
     User createUser(User user);
-    User updateUser(Long userid, User user);
-    ResponseEntity<?> deleteUser(Long userid);
+    User updateUser(Long userId, User userDetails);
+    User getUserById(Long userId);
+    ResponseEntity<?> deleteUser(Long userId);
+    List<User> getAll();
 
-    User assignUserPlan(Long userid, Long planid);
-    User unassignUserPlan(Long userid, Long planid);
+    User assignUserPlan(Long userId, Long planId);
+    User unassignUserPlan(Long userId, Long planId);
 }

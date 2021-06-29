@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface ISchoolService {
-    Page<School> getAllSchools(Pageable pageable);
     School createSchool(School school);
-    School updateSchool(Long id, School school);
-    School getSchoolById(Long id);
-    ResponseEntity<?> deleteSchool(Long id);
+    School updateSchool(Long schoolId, School school);
+    School getSchoolById(Long schoolId);
+    ResponseEntity<?> deleteSchool(Long schoolId);
+    Page<School> getAll(Pageable pageable);
 }

@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface IStudentService {
-    Page<Student> getAllStudents(Pageable pageable);
-    Student getStudentById(Long id);
     Student createStudent(Student student);
     Student updateStudent(Long studentId, Student studentDetails);
-    ResponseEntity<?> deleteStudent(Long id);
+    Student getStudentById(Long studentId);
+    ResponseEntity<?> deleteStudent(Long studentId);
+    Page<Student> getAll(Pageable pageable);
 }

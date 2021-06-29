@@ -20,40 +20,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class LessonTypeController {
     @Autowired
-    private ILessonTypeService ILessonTypeService;
+    private ILessonTypeService lessonTypeService;
 
     @Autowired
     private ModelMapper mapper;
-
-    @GetMapping("/lesson_types")
-    public Page<LessonTypeResource> getLessonTypes(Pageable pageable) {
-        List<LessonTypeResource> schools = ILessonTypeService.getAllLessonTypes(pageable)
-                .getContent().stream().map(this::convertToResource).
-                        collect(Collectors.toList());
-        int schoolCount = schools.size();
-        return new PageImpl<>(schools, pageable, schoolCount);
-    }
-
-    @GetMapping("/lesson_types/{id}")
-    public LessonTypeResource getLessonTypeById(@PathVariable Long id) {
-        return convertToResource(ILessonTypeService.getLessonTypeById(id));
-    }
-
-    @PostMapping("/lesson_types")
-    public LessonTypeResource createLessonType(@RequestBody SaveLessonTypeResource resource) {
-        return convertToResource(ILessonTypeService.saveLessonType(convertToEntity(resource)));
-    }
-
-
-    @PutMapping("/lesson_type/{id}")
-    public LessonTypeResource updateLessonType(@PathVariable Long id, @Valid @RequestBody SaveLessonTypeResource resource) {
-        return convertToResource(ILessonTypeService.updateLessonType(id, convertToEntity(resource)));
-    }
-
-    @DeleteMapping("/lesson_type/{id}")
-    public ResponseEntity<?> deleteLessonType(@PathVariable Long id) {
-        return ILessonTypeService.deleteLessonType(id);
-    }
 
     private LessonType convertToEntity(SaveLessonTypeResource resource) {
         return mapper.map(resource, LessonType.class);
@@ -61,4 +31,34 @@ public class LessonTypeController {
     private LessonTypeResource convertToResource(LessonType entity) {
         return mapper.map(entity, LessonTypeResource.class);
     }
+
+    @PostMapping("/lesson_types")
+    public LessonTypeResource createLessonType(@RequestBody SaveLessonTypeResource resource) {
+        return convertToResource(lessonTypeService.createLessonType(convertToEntity(resource)));
+    }
+
+    @PutMapping("/lesson_types/{lessonTypeId}")
+    public LessonTypeResource updateLessonType(@PathVariable Long lessonTypeId, @Valid @RequestBody SaveLessonTypeResource resource) {
+        return convertToResource(lessonTypeService.updateLessonType(lessonTypeId, convertToEntity(resource)));
+    }
+
+    @GetMapping("/lesson_types/{lessonTypeId}")
+    public LessonTypeResource getLessonTypeById(@PathVariable Long lessonTypeId) {
+        return convertToResource(lessonTypeService.getLessonTypeById(lessonTypeId));
+    }
+
+    @DeleteMapping("/lesson_types/{lessonTypeId}")
+    public ResponseEntity<?> deleteLessonType(@PathVariable Long lessonTypeId) {
+        return lessonTypeService.deleteLessonType(lessonTypeId);
+    }
+
+    @GetMapping("/lesson_types")
+    public Page<LessonTypeResource> getLessonTypes(Pageable pageable) {
+        List<LessonTypeResource> schools = lessonTypeService.getAll(pageable)
+                .getContent().stream().map(this::convertToResource).
+                        collect(Collectors.toList());
+        int schoolCount = schools.size();
+        return new PageImpl<>(schools, pageable, schoolCount);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Carrer;
 import com.academic.academeet.domain.model.Tutor;
+import com.academic.academeet.domain.model.University;
 import com.academic.academeet.domain.repository.ICarrerRepository;
 import com.academic.academeet.domain.repository.ITutorRepository;
 import com.academic.academeet.domain.repository.IUniversityRepository;
@@ -32,13 +33,14 @@ public class CarrerServiceImpl implements ICarrerService {
     }
 
     @Override
-    public Carrer updateCarrer(Long universityId, Long carrerId, Carrer carrer) {
-        if(!universityRepository.existsById(universityId))
-            throw new ResourceNotFoundException("University", "Id", universityId);
+    public Carrer updateCarrer(Long universityId, Long carrerId, Carrer carrerDetails) {
+        University university = universityRepository.findById(universityId)
+                .orElseThrow(()->new ResourceNotFoundException("University", "Id", universityId));
 
-        return carrerRepository.findById(carrerId).map(carrer1 -> {
-            carrer1.setName(carrer.getName());
-            return carrerRepository.save(carrer1);
+        return carrerRepository.findById(carrerId).map(carrer -> {
+            carrer.setName(carrerDetails.getName());
+            carrer.setUniversity(university);
+            return carrerRepository.save(carrer);
             }).orElseThrow(() -> new ResourceNotFoundException("Carrer", "Id", carrerId));
     }
 
@@ -49,21 +51,18 @@ public class CarrerServiceImpl implements ICarrerService {
     }
 
     @Override
-    public ResponseEntity<?> deleteCarrer(Long universityId, Long carrerId) {
-        if(!universityRepository.existsById(universityId))
-            throw new ResourceNotFoundException("University", "Id", universityId);
-
-        return carrerRepository.findById(carrerId).map(carrer1 -> {
-            carrerRepository.delete(carrer1);
+    public ResponseEntity<?> deleteCarrer(Long carrerId) {
+        return carrerRepository.findById(carrerId).map(carrer -> {
+            carrerRepository.delete(carrer);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("Carrer", "Id", carrerId));
     }
 
     @Override
-    public Carrer unassignCarrerTutor(Long carrerId, Long teacherId) {
-        Tutor tutor = tutorRepository.findById(teacherId)
+    public Carrer unassignCarrerTutor(Long carrerId, Long tutorId) {
+        Tutor tutor = tutorRepository.findById(tutorId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Tutor", "Id", teacherId));
+                        "Tutor", "Id", tutorId));
         return carrerRepository.findById(carrerId).map(
                 carrer -> carrerRepository.save(carrer.untagWith(tutor)))
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -71,10 +70,10 @@ public class CarrerServiceImpl implements ICarrerService {
     }
 
     @Override
-    public Carrer assignCarrerTutor(Long carrerId, Long teacherId) {
-        Tutor tutor = tutorRepository.findById(teacherId)
+    public Carrer assignCarrerTutor(Long carrerId, Long tutorId) {
+        Tutor tutor = tutorRepository.findById(tutorId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Tutor", "Id", teacherId));
+                        "Tutor", "Id", tutorId));
         return carrerRepository.findById(carrerId).map(
                 carrer -> carrerRepository.save(carrer.tagWith(tutor)))
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -84,10 +83,5 @@ public class CarrerServiceImpl implements ICarrerService {
     @Override
     public Page<Carrer> getAll(Pageable pageable) {
         return carrerRepository.findAll(pageable);
-    }
-
-    @Override
-    public Page<Carrer> getAllByUniversityId(Long universityId, Pageable pageable) {
-        return carrerRepository.findAllByUniversityId(universityId,pageable);
     }
 }
