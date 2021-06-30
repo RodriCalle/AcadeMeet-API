@@ -38,7 +38,7 @@ public class TypeOfGradeServiceImpl implements ITypeOfGradeService {
                     TypeOfGrade1.setName(typeOfGradeDetails.getName());
                     return typeOfGradeRepository.save(TypeOfGrade1);
                 }
-        ).orElseThrow(() -> new ResourceNotFoundException("TypeOfGrade", "Id", typeOfGradeDetails));
+        ).orElseThrow(() -> new ResourceNotFoundException("TypeOfGrade", "Id", typeOfGradeId));
     }
 
     @Override
