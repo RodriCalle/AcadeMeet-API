@@ -1,6 +1,10 @@
 package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Student;
+import com.academic.academeet.domain.repository.ILevelRepository;
+import com.academic.academeet.domain.repository.ISchoolRepository;
+import com.academic.academeet.domain.service.ILevelService;
+import com.academic.academeet.domain.service.ISchoolService;
 import com.academic.academeet.domain.service.IStudentService;
 import com.academic.academeet.resource.SaveStudentResource;
 import com.academic.academeet.resource.StudentResource;
@@ -21,6 +25,10 @@ public class StudentController {
 
     @Autowired
     private IStudentService studentService;
+    @Autowired
+    private ILevelService levelService;
+    @Autowired
+    private ISchoolService schoolService;
 
     @Autowired
     private ModelMapper mapper;
@@ -32,6 +40,31 @@ public class StudentController {
         return mapper.map(entity, StudentResource.class);
     }
 
+    @PostMapping("/levels/{levelId}/schools/{schoolId}/students")
+    public StudentResource createStudent(@PathVariable Long levelId,
+                                         @PathVariable Long schoolId,
+                                         @RequestBody SaveStudentResource resource) {
+        return convertToResource(studentService.createStudent(levelId,schoolId,convertToEntity(resource)));
+    }
+
+    @PutMapping("/levels/{levelId}/schools/{schoolId}/students/{studentId}")
+    public StudentResource createStudent(@PathVariable Long levelId,
+                                         @PathVariable Long schoolId,
+                                         @PathVariable Long studentId,
+                                         @RequestBody SaveStudentResource resource) {
+        return convertToResource(studentService.updateStudent(levelId,schoolId,studentId,convertToEntity(resource)));
+    }
+
+    @GetMapping("/students/{studentId}")
+    public StudentResource getStudentById(@PathVariable Long studentId) {
+        return convertToResource(studentService.getStudentById(studentId));
+    }
+
+    @DeleteMapping("/students/{studentId}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long studentId) {
+        return studentService.deleteStudent(studentId);
+    }
+
     @GetMapping("/students")
     public Page<StudentResource> getAllStudents(Pageable pageable){
         List<StudentResource> students = studentService.getAll(pageable)
@@ -39,20 +72,5 @@ public class StudentController {
                 .collect(Collectors.toList());
         int studentsCount = students.size();
         return new PageImpl<>(students, pageable, studentsCount);
-    }
-
-    @GetMapping("/students/{id}")
-    public StudentResource getStudentById(@PathVariable Long id) {
-        return convertToResource(studentService.getStudentById(id));
-    }
-
-    @PostMapping("/students")
-    public StudentResource createStudent(@RequestBody SaveStudentResource resource) {
-        return convertToResource(studentService.createStudent(convertToEntity(resource)));
-    }
-
-    @DeleteMapping("/students/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
-        return studentService.deleteStudent(id);
     }
 }

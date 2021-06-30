@@ -26,7 +26,7 @@ public class Lesson {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "lesson_type_id", nullable = false)
     @JsonIgnore
-    private LessonType lesson_type;
+    private LessonType lessonType;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "schedule_id", nullable = false)
@@ -51,6 +51,15 @@ public class Lesson {
         return this;
     }
 
+    public LessonType getLessonType() {
+        return lessonType;
+    }
+
+    public Lesson setLessonType(LessonType lessonType) {
+        this.lessonType = lessonType;
+        return this;
+    }
+
     public Tutor getTutor() {
         return tutor;
     }
@@ -66,15 +75,6 @@ public class Lesson {
 
     public Lesson setCourse(Course course) {
         this.course = course;
-        return this;
-    }
-
-    public LessonType getLesson_type() {
-        return lesson_type;
-    }
-
-    public Lesson setLesson_type(LessonType lesson_type) {
-        this.lesson_type = lesson_type;
         return this;
     }
 
