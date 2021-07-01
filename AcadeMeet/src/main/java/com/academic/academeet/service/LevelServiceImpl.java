@@ -1,7 +1,6 @@
 package com.academic.academeet.service;
 
 import com.academic.academeet.domain.model.Level;
-import com.academic.academeet.domain.model.Plan;
 import com.academic.academeet.domain.repository.ILevelRepository;
 import com.academic.academeet.domain.repository.IStudentRepository;
 import com.academic.academeet.domain.service.ILevelService;
@@ -45,6 +44,7 @@ public class LevelServiceImpl implements ILevelService {
                 .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", levelId));
     }
 
+
     @Override
     public ResponseEntity<?> deleteLevel(Long levelId) {
         return levelRepository.findById(levelId)
@@ -54,6 +54,7 @@ public class LevelServiceImpl implements ILevelService {
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("Level", "Id", levelId));
     }
+
 
     @Override
     public Level assignLevelToStudent(Long levelId, Long studentId) {

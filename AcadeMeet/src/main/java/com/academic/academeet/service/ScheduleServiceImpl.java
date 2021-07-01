@@ -39,7 +39,7 @@ public class ScheduleServiceImpl implements IScheduleService {
                     Schedule1.setEnd_date(scheduleDetails.getEnd_date());
                     return scheduleRepository.save(Schedule1);
                 }
-        ).orElseThrow(() -> new ResourceNotFoundException("Schedule", "Id", scheduleDetails));
+        ).orElseThrow(() -> new ResourceNotFoundException("Schedule", "Id", scheduleId));
     }
 
     @Override
