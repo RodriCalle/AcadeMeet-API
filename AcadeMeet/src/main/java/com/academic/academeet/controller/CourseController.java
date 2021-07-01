@@ -2,7 +2,6 @@ package com.academic.academeet.controller;
 
 import com.academic.academeet.domain.model.Course;
 import com.academic.academeet.domain.service.ICourseService;
-import com.academic.academeet.domain.service.IStudentService;
 import com.academic.academeet.resource.CourseResource;
 import com.academic.academeet.resource.SaveCourseResource;
 import org.modelmapper.ModelMapper;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -43,7 +43,8 @@ public class CourseController {
 
     @GetMapping("/courses/{courseId}")
     public CourseResource getCourseById(@PathVariable Long courseId) {
-        return convertToResource(courseService.getCourseById(courseId));
+        Optional<Course> course = courseService.getCourseById(courseId);
+        return course.map(this::convertToResource).orElse(null);
     }
 
     @DeleteMapping("/courses/{courseId}")
